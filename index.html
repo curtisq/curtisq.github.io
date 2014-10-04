@@ -1,1 +1,342 @@
-Hi world
+<!DOCTYPE html>
+<html>
+<head>
+<title>Nemonico</title>
+
+<style type="text/css">
+	body {
+   font-family: "Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+   font-weight: 200;
+   font-size: 1em;
+   background: #eee;
+   text-align: center;
+}
+
+h1{
+	font-family: "Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+   font-weight: 100;
+   margin-top: 5%;
+   color: #343434
+}
+
+h2{
+		font-family: "Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+   font-weight: 800;
+   font-size: 12px;
+   line-height: .2em;
+   text-transform: uppercase;
+   letter-spacing: 3px;
+   margin-bottom: 30px;
+   color: #ffffff;
+}
+
+html { -webkit-font-smoothing: antialiased; }
+
+#pattern{
+	width: 800px;
+	margin: 22px auto;
+}
+
+.triangle {
+	width: 0;
+	height: 0;
+	border-left: 1.375em solid transparent;
+	border-right: 1.375em solid transparent;
+	border-bottom: 2.75em solid;
+	text-align: left;
+	text-indent: -.31em;
+}
+
+.square{
+	width: 2.75em;
+	height: 2.75em;
+}
+
+.circle{
+	width: 2.75em;
+	height: 2.75em;
+	border-radius: 2.75em;
+}
+
+
+.pentagon{
+    position: relative;
+    width: 54px;
+    border-width: 50px 18px 0;
+    border-style: solid;
+    border-color: red transparent;
+}
+.pentagon:before{
+    content: "";
+    position: absolute;
+    height: 0;
+    width: 0;
+    top: -85px;
+    left: -18px;
+    border-width: 0 1.375em 1.375em;
+    border-style: solid;
+    border-color: transparent transparent red;
+}
+
+
+.circle2 {
+	position: relative;
+	height: 132px;
+	width: 132px;
+	background-image: url('masks/circle-mask@2x.png');
+	background-size: cover;
+}
+.square2 {
+	position: relative;
+	height: 132px;
+	width: 132px;
+	background-image: url('masks/square-mask@2x.png');
+	background-size: cover;	
+}
+.triangle2 {
+	position: relative;
+	height: 132px;
+	width: 132px;
+	background-image: url('masks/triangle-mask@2x.png');
+	background-size: cover;	
+}
+
+.pentagon2 {
+	position: relative;
+	height: 132px;
+	width: 132px;
+	background-image: url('masks/pentagon-mask@2x.png');
+	background-size: cover;
+}
+
+.circle2.btn {
+	background-image: url('masks/keyboard/circle-mask@2x.png');
+	background-size: cover;
+}
+.square2.btn {
+	background-image: url('masks/keyboard/square-mask@2x.png');
+	background-size: cover;	
+}
+.triangle2.btn {
+	background-image: url('masks/keyboard/triangle-mask@2x.png');
+	background-size: cover;	
+}
+
+.pentagon2.btn {
+	background-image: url('masks/keyboard/pentagon-mask@2x.png');
+	background-size: cover;
+}
+.shape2{
+    color: white;
+    font-size: 2em;
+    line-height: 137px;
+	text-align: center;
+	float: left;
+	margin: 0em;
+	cursor:default;
+}
+/* used for keyboard */
+.shape{
+    font-size: 2em;
+    line-height: 100px;
+    color: white;
+    height: 100px;
+	width: 100px;
+	text-align: center;
+	float: left;
+	margin: 1em;
+	margin-left: 1.15em;
+	cursor:default;
+}
+.wrapper {
+	margin: 1.2em;
+	float: left;
+	width:132px;
+	height: 132px;
+}
+
+.currentshape{
+background: url('masks/tinycircle-mask@3x.png') #dedede;
+background-size: cover;
+}
+
+.blue{
+	background-color: #4eb7d1;
+}
+.pink {
+	background-color: #ff5d87;
+}
+.green {
+	background-color: #95c15b;
+}
+.yellow {
+	background-color: #ffc26c;
+}
+.grey {
+	background-color: #a2a2a2;
+}
+
+.triangle.blue{
+    background: none;
+	border-bottom-color: #4eb7d1;
+}
+
+.triangle.pink {
+    background: none;
+	border-bottom-color: #ff5d87;
+}
+
+.triangle.green, .pentagon.green{
+    background: none;
+	border-bottom-color: #95c15b;
+}
+.triangle.yellow {
+    background: none;
+	border-bottom-color: #ffc26c;
+}
+
+.triangle.grey {
+    background: none;
+	border-bottom-color: #333;
+}
+
+.pentagon.blue{
+    background: none;
+	border-color:  #4eb7d1 transparent;
+}
+
+.pentagon.pink {
+    background: none;
+	border-color:  #ff5d87 transparent;
+}
+
+.pentagon.green{
+    background: none;
+	border-color:  #95c15b transparent;
+}
+.pentagon.yellow {
+	border-color:  #ffc26c transparent;
+}
+
+.pentagon:before .blue{
+    background: none;
+	border-color:transparent transparent #4eb7d1;
+}
+
+.pentagon:before .pink {
+    background: none;
+	border-color:transparent transparent #ff5d87;
+}
+
+.pentagon:before .green{
+    background: none;
+	border-color:transparent transparent #95c15b;
+}
+.pentagon:before.yellow {
+	border-color:transparent transparent #ffc26c;
+}
+
+.patternDiv {
+	width:  686px;
+	background-color: #FFF;
+	height: 600px;
+	margin: 0 auto;
+	border-radius:3em 3em 0px 0px;
+}
+
+.keyboardDiv {
+	width: 686px;
+	background-color: #f7f7f7;
+	height: 175px;
+	min-height: 175px;
+	margin: 0 auto;
+	border-radius: 0px 0px 3em 3em;
+	box-shadow: 0px 6px 6px rgba(0,0,0,0.09);
+	text-align: center;
+}
+
+
+#nprogress {
+	pointer-events: none;
+	-webkit-pointer-events: none;
+}
+#nprogress .bar {
+	background: #939393;
+	z-index: 100;
+	width: 100%;
+	margin: 0 auto;
+	height: 3px;
+}
+
+.nprogress-custom-parent {
+	overflow: hidden;
+	position: relative;
+}
+
+.wintext{
+   font-weight: 500;
+   color: #95c15b;
+   font-size: 3em;
+      margin: 0;
+padding: 0;
+   padding-top: 35%;
+}
+
+.losetext{
+   font-weight: 500;
+   color: #ff5d87;
+   font-size: 3em;
+      margin: 0;
+padding: 0;
+   padding-top: 35%;
+
+}
+
+.tryagain{
+   font-weight: 800;
+   color: #aaa;
+   font-size: 1.3em;
+   letter-spacing: 1px;
+   text-transform: uppercase;
+   text-decoration: underline;
+   cursor: pointer;
+}
+
+.tryagain:hover{
+color: #555;
+}
+.pointer{
+	cursor: pointer;
+}
+
+.shape:hover{
+	opacity: 0.75;
+}
+.progressBar{
+	margin: 0 auto;
+	width: 686px;
+	min-height: 3px;
+}
+
+</style>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="./js/nprogress.js"></script>
+  <script src="./js/nem.js"></script>
+</head>
+
+<body>
+  <h1>Nemonico</h1>
+  <h2>Remember Everything</h2>
+  <div class='patternDiv'></div>
+  <div class='progressBar'></div>
+  <div id="kbd" class='keyboardDiv'></div>
+  
+<script>
+console.log("End Script");
+main();
+</script>
+
+</body>
+
+</html>
