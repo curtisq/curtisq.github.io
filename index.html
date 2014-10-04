@@ -310,7 +310,7 @@ padding: 0;
    font-size: 2em;
    line-height: 2em;
    border: 2px solid;
-   border-radius: 1em;
+   border-radius: 1.4em;
    margin: 1em auto;
    width: 220px;
    letter-spacing: 1px;
@@ -343,6 +343,25 @@ color:#4eb7d1;
 	min-height: 3px;
 }
 
+#scoreboard{
+position: absolute;
+right: 0;
+top:50px;
+	width: 300px;
+	display: block;
+	background: pink;
+	text-align: left;
+}
+#scoreboard p{
+	font-weight: bold;
+	text-align: center;
+}
+
+.bigwrap{
+	margin: 0 auto;
+	width: 1100px;
+}
+
 </style>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -352,11 +371,13 @@ color:#4eb7d1;
 
 <body>
   <h1>Nemonico</h1>
-  <h2>Remember Everything</h2>
+  <h2 id="levelscore">Remember Everything</h2>
+ 
   <div class='patternDiv'></div>
   <div class='progressBar'></div>
   <div id="kbd" class='keyboardDiv'></div>
-  
+
+
 <script>
 console.log("End Script");
 main();

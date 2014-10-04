@@ -41,6 +41,7 @@ var timer_id;
 var game_won = 0;
 var TIME_FOR_INCORRECT = 2.5;
 var time_remaining;
+var time_under_total = 0;
 
 function main() {
 	var s1 = new Shape();
@@ -154,7 +155,7 @@ function generateKeyboard(type) {
 	
 	for(i = 0; i < PATTERN_LENGTH; i++) {
 		var id = "#s" + i;
-		$(id).fadeOut(2000);
+		$(id).delay(250 * i).fadeOut(500);
 	}
 	
 	switch(type) {
@@ -173,45 +174,52 @@ function generateKeyboard(type) {
 }
 
 function shapeKeyboard() {
+	var keyboard_delay = 250 * PATTERN_LENGTH;
+
 	var b0 = "<div id='b0' class=" + "'btn pointer shape grey circle2'" + ">" + "</div>";
 	var b1 = "<div id='b1' class=" + "'btn pointer shape grey triangle2'" + ">" + "</div>";
 	var b2 = "<div id='b2' class=" + "'btn pointer shape grey square2'" + ">" + "</div>";
 	var b3 = "<div id='b3' class=" + "'btn pointer shape grey pentagon2'" + ">" + "</div>";
-	$(b0).appendTo('.keyboardDiv').hide().delay(1800).fadeIn(250);
-	$(b1).appendTo('.keyboardDiv').hide().delay(1800).fadeIn(250);
-	$(b2).appendTo('.keyboardDiv').hide().delay(1800).fadeIn(250);
-	$(b3).appendTo('.keyboardDiv').hide().delay(1800).fadeIn(250);
+	$(b0).appendTo('.keyboardDiv').hide().delay(keyboard_delay).fadeIn(250);
+	$(b1).appendTo('.keyboardDiv').hide().delay(keyboard_delay).fadeIn(250);
+	$(b2).appendTo('.keyboardDiv').hide().delay(keyboard_delay).fadeIn(250);
+	$(b3).appendTo('.keyboardDiv').hide().delay(keyboard_delay).fadeIn(250);
 }
 
 function colorKeyboard() {
+	var keyboard_delay = 250 * PATTERN_LENGTH;
+
 	var b0 = "<div id='b0' class=" + "'pointer shape blue circle'" + ">" + "</div>";
 	var b1 = "<div id='b1' class=" + "'pointer shape pink circle'" + ">" + "</div>";
 	var b2 = "<div id='b2' class=" + "'pointer shape yellow circle'" + ">" + "</div>";
 	var b3 = "<div id='b3' class=" + "'pointer shape green circle'" + ">" + "</div>";
-	$(b0).appendTo('.keyboardDiv').hide().delay(1800).fadeIn(250);
-	$(b1).appendTo('.keyboardDiv').hide().delay(1800).fadeIn(250);
-	$(b2).appendTo('.keyboardDiv').hide().delay(1800).fadeIn(250);
-	$(b3).appendTo('.keyboardDiv').hide().delay(1800).fadeIn(250);
+	$(b0).appendTo('.keyboardDiv').hide().delay(keyboard_delay).fadeIn(250);
+	$(b1).appendTo('.keyboardDiv').hide().delay(keyboard_delay).fadeIn(250);
+	$(b2).appendTo('.keyboardDiv').hide().delay(keyboard_delay).fadeIn(250);
+	$(b3).appendTo('.keyboardDiv').hide().delay(keyboard_delay).fadeIn(250);
 
 }
 
 function numberKeyboard() {
+	var keyboard_delay = 250 * PATTERN_LENGTH;
+
 	var b0 = "<div id='b0' class=" + "'pointer shape grey circle'" + ">" + getNumchar(0, 1) + "</div>";
 	var b1 = "<div id='b1' class=" + "'pointer shape grey circle'" + ">" + getNumchar(1, 1) + "</div>";
 	var b2 = "<div id='b2' class=" + "'pointer shape grey circle'" + ">" + getNumchar(2, 1) + "</div>";
 	var b3 = "<div id='b3' class=" + "'pointer shape grey circle'" + ">" + getNumchar(3, 1) + "</div>";
-	$(b0).appendTo('.keyboardDiv').hide().delay(1800).fadeIn(250);
-	$(b1).appendTo('.keyboardDiv').hide().delay(1800).fadeIn(250);
-	$(b2).appendTo('.keyboardDiv').hide().delay(1800).fadeIn(250);
-	$(b3).appendTo('.keyboardDiv').hide().delay(1800).fadeIn(250);
+	$(b0).appendTo('.keyboardDiv').hide().delay(keyboard_delay).fadeIn(250);
+	$(b1).appendTo('.keyboardDiv').hide().delay(keyboard_delay).fadeIn(250);
+	$(b2).appendTo('.keyboardDiv').hide().delay(keyboard_delay).fadeIn(250);
+	$(b3).appendTo('.keyboardDiv').hide().delay(keyboard_delay).fadeIn(250);
 
 }
 
 //determine time till end
 function createTimer(allowed) {
+	var keyboard_delay = 0.25 * PATTERN_LENGTH + 0.3;
 	var end = new Date();
 	start_time = new Date();
-	end.setSeconds(end.getSeconds() + allowed + 2);
+	end.setSeconds(end.getSeconds() + allowed + keyboard_delay);
 	console.log("Timer ends at " + end); 
 	end_time = end;
 
@@ -284,7 +292,9 @@ function checkInput(button, keyboard) {
 		}
 		//you got the last item. you win
 		else {
-			console.log("WIN IN " + time_remaining);
+			console.log("WIN WITH " + time_remaining + "s REMAINING");
+			time_under_total += (time_remaining);
+			console.log("TOTAL TIME UNDER TARGET- " + time_under_total + "s");
 			clearInterval(timer_id);
 			$(id).show();
 			gameOver(1);
@@ -313,13 +323,15 @@ function gameOver(win) {
 		var id = "#sw" + i;
 		$(id).fadeOut(1000);
 	}
-	
+
+	$('#levelscore').text("-" + time_under_total + " seconds total");
+
 	if(win) {
 		var msg = "<h3 class='resulttext wintext'>You won with " + Math.round(time_remaining) + " of " + TIME_ALLOWED + "<br>seconds remaining." + "</h3>";
-		$(msg).appendTo('.patternDiv').hide().delay(1200).fadeIn(500);
+		$(msg).appendTo('.patternDiv').hide().delay(1000).fadeIn(500);
 		//continue
 		var contmsg = "<h3 class='pointer resulttext continue'>Continue</h3>";
-		$(contmsg).appendTo('.patternDiv').hide().delay(1200).fadeIn(500);
+		$(contmsg).appendTo('.patternDiv').hide().delay(1000).slideToggle(300);
 
 		$('.continue').click(function(){
 			refreshBoard();
@@ -333,11 +345,11 @@ function gameOver(win) {
 
 	}
 	else {
-		var msg = "<h3 class='resulttext losetext'>Congratulations! You lose.</h3>";
+		var msg = "<h3 class='resulttext losetext'>Sorry, you forgot.<br>Final Score: -" + time_under_total + "s</h3>";
 		$(msg).appendTo('.patternDiv').hide().delay(1200).fadeIn(500);
 	}	
 
-	var retrymsg = "<h3 class='pointer resulttext tryagain'>Start over</h3>";
+	var retrymsg = "<h3 class='pointer resulttext tryagain'>Start Over</h3>";
 	$(retrymsg).appendTo('.patternDiv').hide().delay(1200).fadeIn(500);
 
 	$('.tryagain').click(function(){
