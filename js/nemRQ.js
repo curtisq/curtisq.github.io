@@ -30,14 +30,15 @@ function Shape(c, s, n) {
 
 //Globals
 var patternElements = [];
-var position = 0;
-var total_incorrect = 0;
 var PATTERN_LENGTH = 4;
 var TIME_ALLOWED = 20;
+var position = 0;
+var total_incorrect = 0;
 var start_time;
 var end_time;
 var timer_id;
 var game_won = 0;
+var TIME_FOR_INCORRECT = 2.5;
 
 function main() {
 	var s1 = new Shape();
@@ -81,10 +82,9 @@ function main() {
 				colorClass = "green ";
 				break;
 		}
-
-
+		var numchar = getNumchar(num, 1);
 		var classStr = "'shape2 " + colorClass + shapeClass + "'";
-		var element = "<div id=" + id + " class=" + classStr + ">" + num + "</div>";
+		var element = "<div id=" + id + " class=" + classStr + ">" + numchar + "</div>";
 		var elementWrapper = "<div id='sw" + i + "' class='wrapper'>" + element + "</div>";
 		patternElements.push([col,sha,num]);
 		$('.patternDiv').append(elementWrapper);
@@ -94,7 +94,7 @@ function main() {
 	NProgress.configure({ minimum: 0.0 });
 	NProgress.configure({ trickle: false });
 	NProgress.configure({ ease: 'ease', speed: 200 });
-	NProgress.configure({ parent: '#kbd' });
+	NProgress.configure({ parent: '.progressBar' });
 	NProgress.set(0.0);
 
 	//return;
@@ -108,9 +108,49 @@ function main() {
 
 }
 
+function getNumchar(num, type) {
+
+	if(typeof(type)==='undefined') type = 0;
+	if(type == 0) {
+		switch(num) {
+			case 0:
+				numchar = "A";
+				break;
+			case 1:
+				numchar = "B";
+				break;
+			case 2:
+				numchar = "X";
+				break;
+			case 3:
+				numchar = "Y";
+				break;
+		}
+	}
+	else if(type == 1) {
+		switch(num) {
+			case 0:
+				numchar = "\u03C0"; //pi
+				break;
+			case 1:
+				numchar = "\u03B2"; //beta
+				break;
+			case 2:
+				numchar = "\u03A9"; //Omega
+				break;
+			case 3:
+				numchar = "\u03A3"; //Sigma
+				break;
+		}
+	}
+	return numchar;
+
+}
+
+
 function generateKeyboard(type) {
 	
-	for(i = 0; i < 12; i++) {
+	for(i = 0; i < PATTERN_LENGTH; i++) {
 		var id = "#s" + i;
 		$(id).fadeOut(2000);
 	}
@@ -127,47 +167,47 @@ function generateKeyboard(type) {
 			break;
 	}
 	//box around first item to guess
-	$('#sw0').css("border", "2px solid red");
+	$('#sw0').addClass("currentshape");
 }
 
 function shapeKeyboard() {
-	var b0 = "<div id='b0' class=" + "'shape grey circle'" + ">" + "</div>";
-	var b1 = "<div id='b1' class=" + "'shape grey triangle'" + ">" + "</div>";
-	var b2 = "<div id='b2' class=" + "'shape grey square'" + ">" + "</div>";
-	var b3 = "<div id='b3' class=" + "'shape grey pentagon2'" + ">" + "</div>";
-	$('.keyboardDiv').append(b0).hide().fadeIn(2000);
-	$('.keyboardDiv').append(b1);
-	$('.keyboardDiv').append(b2);
-	$('.keyboardDiv').append(b3);
+	var b0 = "<div id='b0' class=" + "'btn pointer shape grey circle2'" + ">" + "</div>";
+	var b1 = "<div id='b1' class=" + "'btn pointer shape grey triangle2'" + ">" + "</div>";
+	var b2 = "<div id='b2' class=" + "'btn pointer shape grey square2'" + ">" + "</div>";
+	var b3 = "<div id='b3' class=" + "'btn pointer shape grey pentagon2'" + ">" + "</div>";
+	$(b0).appendTo('.keyboardDiv').hide().delay(2000).fadeIn(500);
+	$(b1).appendTo('.keyboardDiv').hide().delay(2000).fadeIn(500);
+	$(b2).appendTo('.keyboardDiv').hide().delay(2000).fadeIn(500);
+	$(b3).appendTo('.keyboardDiv').hide().delay(2000).fadeIn(500);
 }
 
 function colorKeyboard() {
-	var b0 = "<div id='b0' class=" + "'shape blue circle'" + ">" + "</div>";
-	var b1 = "<div id='b1' class=" + "'shape pink circle'" + ">" + "</div>";
-	var b2 = "<div id='b2' class=" + "'shape yellow circle'" + ">" + "</div>";
-	var b3 = "<div id='b3' class=" + "'shape green circle'" + ">" + "</div>";
-	$('.keyboardDiv').append(b0).hide().fadeIn(2000);
-	$('.keyboardDiv').append(b1);
-	$('.keyboardDiv').append(b2);
-	$('.keyboardDiv').append(b3);
+	var b0 = "<div id='b0' class=" + "'pointer shape blue circle'" + ">" + "</div>";
+	var b1 = "<div id='b1' class=" + "'pointer shape pink circle'" + ">" + "</div>";
+	var b2 = "<div id='b2' class=" + "'pointer shape yellow circle'" + ">" + "</div>";
+	var b3 = "<div id='b3' class=" + "'pointer shape green circle'" + ">" + "</div>";
+	$(b0).appendTo('.keyboardDiv').hide().delay(2000).bounce(500);
+	$(b1).appendTo('.keyboardDiv').hide().delay(2000).bounce(500);
+	$(b2).appendTo('.keyboardDiv').hide().delay(2000).bounce(500);
+	$(b3).appendTo('.keyboardDiv').hide().delay(2000).bounce(500);
 }
 
 function numberKeyboard() {
-	var b0 = "<div id='b0' class=" + "'shape grey circle'" + ">" + "0" + "</div>";
-	var b1 = "<div id='b1' class=" + "'shape grey circle'" + ">" + "1" + "</div>";
-	var b2 = "<div id='b2' class=" + "'shape grey circle'" + ">" + "2" + "</div>";
-	var b3 = "<div id='b3' class=" + "'shape grey circle'" + ">" + "3" + "</div>";
-	$('.keyboardDiv').append(b0).hide().fadeIn(2000);
-	$('.keyboardDiv').append(b1);
-	$('.keyboardDiv').append(b2);
-	$('.keyboardDiv').append(b3);
+	var b0 = "<div id='b0' class=" + "'pointer shape grey circle'" + ">" + getNumchar(0, 1) + "</div>";
+	var b1 = "<div id='b1' class=" + "'pointer shape grey circle'" + ">" + getNumchar(1, 1) + "</div>";
+	var b2 = "<div id='b2' class=" + "'pointer shape grey circle'" + ">" + getNumchar(2, 1) + "</div>";
+	var b3 = "<div id='b3' class=" + "'pointer shape grey circle'" + ">" + getNumchar(3, 1) + "</div>";
+	$(b0).appendTo('.keyboardDiv').hide().delay(2000).fadeIn(500);
+	$(b1).appendTo('.keyboardDiv').hide().delay(2000).fadeIn(500);
+	$(b2).appendTo('.keyboardDiv').hide().delay(2000).fadeIn(500);
+	$(b3).appendTo('.keyboardDiv').hide().delay(2000).fadeIn(500);
 }
 
 //determine time till end
 function createTimer(allowed) {
 	var end = new Date();
 	start_time = end;
-	end.setSeconds(end.getSeconds() + allowed);
+	end.setSeconds(end.getSeconds() + allowed + 2);
 	console.log("Timer ends at " + end); 
 	end_time = end;
 
@@ -184,18 +224,16 @@ function checkTimer() {
 	var now = new Date();
 	var dif = end_time - now;
 	var dif_secs = dif / 1000;
-	console.log("going for " + dif_secs + " seconds");
 	var pct = (TIME_ALLOWED - dif_secs) / TIME_ALLOWED;
 	//Time is up
 	if(now >= end_time) {
-		NProgress.done();
+		NProgress.set(1);
 		clearInterval(timer_id);
-		outOfTime();
+		gameOver(0);
 	}
 	//update progress bar
 	else {
 		NProgress.set(pct + 0.01);
-		//updateTimerBar();
 	}
 }
 
@@ -225,17 +263,6 @@ function bindClick(keyboard) {
 
 }
 
-function outOfTime() {
-
-	for(i = 0; i < 12; i++) {
-		var id = "#s" + i;
-		$(id).show();
-	}
-	
-	destroyKeyboard();
-	alert("You ran out of time!");
-}
-
 function checkInput(button, keyboard) {
 	
 	var answer = patternElements[position][keyboard];
@@ -245,25 +272,82 @@ function checkInput(button, keyboard) {
 		var wid = "#sw" + position;
 		if((position+1) < patternElements.length) {
 			$(id).fadeIn(200);
-			$(wid).css("border", "none");
+			$(wid).removeClass("currentshape");
 			position++;
 			wid = "#sw" + position;
-			$(wid).css("border", "2px solid red");
+			$(wid).addClass("currentshape");
 		}
+		//you got the last item. you win
 		else {
-			$(id).show();
-			destroyKeyboard();
 			clearInterval(timer_id);
-			alert("YOU WIN! (You had " + total_incorrect + " incorrect answer(s).)");
+			$(id).show();
+			gameOver(1);
 		}
 	}
 	else {
 		total_incorrect++;
-		decrementTimer(1);
+		decrementTimer(TIME_FOR_INCORRECT);
 		console.log("INCORRECT");
 	}
 }
 
-function destroyKeyboard() {
-	$('.keyboardDiv').fadeOut(2000);
+function destroyKeyboard(ms) {
+	if(typeof(ms)==='undefined') ms = 500;
+	$('#b0').fadeOut(ms).destroy();
+	$('#b1').fadeOut(ms).destroy();
+	$('#b2').fadeOut(ms).destroy();
+	$('#b3').fadeOut(ms).destroy();
+
+}
+
+function gameOver(win) {
+
+	destroyKeyboard(1000);
+	for(i = 0; i < PATTERN_LENGTH; i++) {
+		var id = "#sw" + i;
+		$(id).fadeOut(1000);
+	}
+	
+	if(win) {
+		var msg = "<h3 class='resulttext wintext'>You win. Congratulations!</h3>";
+		$(msg).appendTo('.patternDiv').hide().delay(1200).fadeIn(500);
+		//continue
+		var contmsg = "<h3 class='pointer resulttext continue'>Continue</h3>";
+		$(contmsg).appendTo('.patternDiv').hide().delay(1200).fadeIn(500);
+
+		$('.continue').click(function(){
+			patternElements = [];
+			PATTERN_LENGTH++;
+			TIME_ALLOWED += 2;
+			position = 0;
+			refreshBoard();
+			main();
+		});
+
+	}
+	else {
+		var msg = "<h3 class='resulttext losetext'>Congratulations! You lose.</h3>";
+		$(msg).appendTo('.patternDiv').hide().delay(1200).fadeIn(500);
+	}	
+
+	var retrymsg = "<h3 class='pointer resulttext tryagain'>Start over</h3>";
+	$(retrymsg).appendTo('.patternDiv').hide().delay(1200).fadeIn(500);
+
+	$('.tryagain').click(function(){
+		window.location.reload();
+	});
+	
+}
+
+function refreshBoard() {
+	$('.wintext').fadeOut(500).remove();
+	$('.losetext').fadeOut(500).remove();
+	$('.tryagain').fadeOut(500).remove();
+	$('.continue').fadeOut(500).remove();
+
+	for(i = 0; i < PATTERN_LENGTH; i++) {
+		var id = "#sw" + i;
+		$(id).remove();
+	}
+	
 }

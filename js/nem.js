@@ -30,15 +30,16 @@ function Shape(c, s, n) {
 
 //Globals
 var patternElements = [];
+var PATTERN_LENGTH = 1;
+var TIME_ALLOWED = 20;
 var position = 0;
 var total_incorrect = 0;
-var PATTERN_LENGTH = 4;
-var TIME_ALLOWED = 20;
 var start_time;
 var end_time;
 var timer_id;
 var game_won = 0;
 var TIME_FOR_INCORRECT = 2.5;
+var time_remaining;
 
 function main() {
 	var s1 = new Shape();
@@ -206,7 +207,7 @@ function numberKeyboard() {
 //determine time till end
 function createTimer(allowed) {
 	var end = new Date();
-	start_time = end;
+	start_time = new Date();
 	end.setSeconds(end.getSeconds() + allowed + 2);
 	console.log("Timer ends at " + end); 
 	end_time = end;
@@ -224,6 +225,7 @@ function checkTimer() {
 	var now = new Date();
 	var dif = end_time - now;
 	var dif_secs = dif / 1000;
+	time_remaining = dif_secs;
 	var pct = (TIME_ALLOWED - dif_secs) / TIME_ALLOWED;
 	//Time is up
 	if(now >= end_time) {
@@ -279,6 +281,7 @@ function checkInput(button, keyboard) {
 		}
 		//you got the last item. you win
 		else {
+			console.log("WIN IN " + time_remaining);
 			clearInterval(timer_id);
 			$(id).show();
 			gameOver(1);
@@ -293,10 +296,10 @@ function checkInput(button, keyboard) {
 
 function destroyKeyboard(ms) {
 	if(typeof(ms)==='undefined') ms = 500;
-	$('#b0').fadeOut(ms);
-	$('#b1').fadeOut(ms);
-	$('#b2').fadeOut(ms);
-	$('#b3').fadeOut(ms);
+	$('#b0').fadeOut(ms).remove();
+	$('#b1').fadeOut(ms).remove();
+	$('#b2').fadeOut(ms).remove();
+	$('#b3').fadeOut(ms).remove();
 
 }
 
@@ -309,19 +312,45 @@ function gameOver(win) {
 	}
 	
 	if(win) {
-		var msg = "<h3 class='resulttext wintext'>You win. Congratulations!</h3>";
+		var msg = "<h3 class='resulttext wintext'>You won with " + Math.round(time_remaining) + " of " + TIME_ALLOWED + " seconds remaining." + "</h3>";
 		$(msg).appendTo('.patternDiv').hide().delay(1200).fadeIn(500);
+		//continue
+		var contmsg = "<h3 class='pointer resulttext continue'>Continue</h3>";
+		$(contmsg).appendTo('.patternDiv').hide().delay(1200).fadeIn(500);
+
+		$('.continue').click(function(){
+			refreshBoard();
+			patternElements = [];
+			PATTERN_LENGTH++;
+			TIME_ALLOWED += 2;
+			position = 0;
+			main();
+		});
+
 	}
 	else {
 		var msg = "<h3 class='resulttext losetext'>Congratulations! You lose.</h3>";
 		$(msg).appendTo('.patternDiv').hide().delay(1200).fadeIn(500);
 	}	
 
-	var retrymsg = "<h3 class='pointer resulttext tryagain'>Try again</h3>";
+	var retrymsg = "<h3 class='pointer resulttext tryagain'>Start over</h3>";
 	$(retrymsg).appendTo('.patternDiv').hide().delay(1200).fadeIn(500);
 
 	$('.tryagain').click(function(){
-		window.location.reload()
+		window.location.reload();
 	});
+	
+}
+
+function refreshBoard() {
+	$('.wintext').fadeOut(500).remove();
+	$('.losetext').fadeOut(500).remove();
+	$('.tryagain').fadeOut(500).remove();
+	$('.continue').fadeOut(500).remove();
+
+	for(i = 0; i < PATTERN_LENGTH; i++) {
+		var id = "#sw" + i;
+		$(id).remove();
+	}
 	
 }

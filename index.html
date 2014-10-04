@@ -16,7 +16,7 @@ h1{
 	font-family: "Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
    font-weight: 100;
    margin-top: 5%;
-   color: #343434
+   color: #343434;
 }
 
 h2{
@@ -27,7 +27,7 @@ h2{
    text-transform: uppercase;
    letter-spacing: 3px;
    margin-bottom: 30px;
-   color: #ffffff;
+   color: #c2c2c2;
 }
 
 html { -webkit-font-smoothing: antialiased; }
@@ -279,7 +279,7 @@ background-size: cover;
    font-size: 3em;
       margin: 0;
 padding: 0;
-   padding-top: 35%;
+   padding-top: 22%;
 }
 
 .losetext{
@@ -288,22 +288,42 @@ padding: 0;
    font-size: 3em;
       margin: 0;
 padding: 0;
-   padding-top: 35%;
+   padding-top: 33%;
 
 }
 
 .tryagain{
    font-weight: 800;
-   color: #aaa;
-   font-size: 1.3em;
+   color: rgba(171,171,171,0.4);
+   font-size: 1.1em;
    letter-spacing: 1px;
    text-transform: uppercase;
    text-decoration: underline;
    cursor: pointer;
 }
 
+
+
+.continue{
+   font-weight: 800;
+   color:rgba(171,171,171,0.8);
+   font-size: 2em;
+   line-height: 2em;
+   border: 2px solid;
+   border-radius: 1em;
+   margin: 1em auto;
+   width: 220px;
+   letter-spacing: 1px;
+   text-transform: uppercase;
+   cursor: pointer;
+}
+
+
 .tryagain:hover{
-color: #555;
+color:#ffc26c;
+}
+.continue:hover{
+color:#4eb7d1;
 }
 .pointer{
 	cursor: pointer;
@@ -311,6 +331,11 @@ color: #555;
 
 .shape:hover{
 	opacity: 0.75;
+}
+
+.shape:active{
+	opacity: 1.0;
+	margin-top:25px;
 }
 .progressBar{
 	margin: 0 auto;
