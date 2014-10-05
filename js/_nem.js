@@ -35,7 +35,7 @@ var TIME_ALLOWED = 5;
 var VIEW_TIME = 3000;
 var VARIABLES = 1;
 var REMEMBER_PATTERN = 1;
-var DIFFICULTY = 1;
+var DIFFICULTY = 6;
 
 var position = 0;
 var total_incorrect = 0;
@@ -52,30 +52,30 @@ function setDifficulty() {
 	switch(DIFFICULTY) {
 		case 0:
 			VARIABLES = 1;
-			REMEMBER_PATTERN = 1;
+			REMEMBER_PATTER = 1;
 			break;
 		case 1:
 			VARIABLES = 2;
-			REMEMBER_PATTERN = 1;
+			REMEMBER_PATTER = 1;
 			break;
 		case 2:
 			VARIABLES = 3;
-			REMEMBER_PATTERN = 1;
+			REMEMBER_PATTER = 1;
 			break;
 		case 3:
 			VARIABLES = 1;
-			REMEMBER_PATTERN = 0;
+			REMEMBER_PATTER = 0;
 			break;
 		case 4:
 			VARIABLES = 2;
-			REMEMBER_PATTERN = 0;
+			REMEMBER_PATTER = 0;
 			break;
 		case 5:
 			VARIABLES = 3;
-			REMEMBER_PATTERN = 0;
+			REMEMBER_PATTER = 0;
 			break;
 	}
-	console.log("Difficulty set - vars:" + VARIABLES + " remember:" + REMEMBER_PATTERN);
+
 }
 
 
@@ -117,22 +117,9 @@ function getColorClass(col) {
 	return colorClass;
 }
 
-function determineTimes() {
-	if(REMEMBER_PATTERN) {
-		VIEW_TIME = 2 + (VARIABLES * PATTERN_LENGTH / 1.5);
-		TIME_ALLOWED = 3 + (VARIABLES * PATTERN_LENGTH / 2);
-	}
-	else {
-		VIEW_TIME = 2 + (VARIABLES * PATTERN_LENGTH);
-		TIME_ALLOWED = 3 + (VARIABLES * PATTERN_LENGTH / 1.3);
-	}
-
-	console.log("Round" + PATTERN_LENGTH + "| view:" + VIEW_TIME + " answer:" + TIME_ALLOWED);
-	
-	VIEW_TIME *= 1000; //for ms
-}
-
 function rememberMain() {
+	setDifficulty();
+
 	var s1 = new Shape();
 	s1.reroll()
 	col = s1.getColor();
@@ -142,7 +129,7 @@ function rememberMain() {
 	var colorClass = getColorClass(col);
 	var numchar = getNumchar(num, 1);
 
-	var elementWrapper = getPatternElement(shapeClass, colorClass, numchar, PATTERN_LENGTH-1);
+	var elementWrapper = getPatternElement(shapeClass, colorClass, numchar);
 
 	patternElements.push([col,sha,num]);
 	
@@ -150,7 +137,7 @@ function rememberMain() {
 	
 	for(i = 0; i < PATTERN_LENGTH; i++) {
 		var id = "#sw" + i;
-		$(id).fadeIn(250);
+		$(id).show();
 	}
 
 	console.log(patternElements);
@@ -171,8 +158,8 @@ function rememberMain() {
 
 }
 
-function getPatternElement(shapeClass,colorClass,numchar, idnum) {
-	var id = "'s" + idnum + "'";
+function getPatternElement(shapeClass,colorClass,numchar) {
+	var id = "'s" + (PATTERN_LENGTH) + "'";
 
 	switch(VARIABLES) {
 		case 1:
@@ -189,34 +176,11 @@ function getPatternElement(shapeClass,colorClass,numchar, idnum) {
 			break;
 	}
 
-	var elementWrapper = "<div id='sw" + idnum + "' class='wrapper'>" + element + "</div>";
+	var elementWrapper = "<div id='sw" + i + "' class='wrapper'>" + element + "</div>";
 	return elementWrapper;
 }
 
-function bindDifBtn(id, dif) {
-	$(id).click(function(){
-		console.log('Difficulty 0');
-		DIFFICULTY = dif;
-		$("#mainmenu").fadeOut(1000);
-		$("#gameboard").delay(1000).fadeIn(1000);
-		setTimeout(function() {main();}, 2250);
-	});
-}
-
-function difMenu() {
-	$("#gameboard").hide();
-	bindDifBtn('#alpha', 0);
-	bindDifBtn('#beta', 1);
-	bindDifBtn('#gamma', 2);
-	bindDifBtn('#delta', 3);
-	bindDifBtn('#epsilon', 4);
-	bindDifBtn('#zeta', 5);
-}
-
 function main() {
-	setDifficulty();
-	determineTimes();
-
 	var s1 = new Shape();
 	var col = s1.getColor();
 	var sha = s1.getShape();
@@ -232,10 +196,10 @@ function main() {
 		var colorClass = getColorClass(col);
 		var numchar = getNumchar(num, 1);
 
-		var elementWrapper = getPatternElement(shapeClass, colorClass, numchar, i);
+		var elementWrapper = getPatternElement(shapeClass, colorClass, numchar);
 
 		patternElements.push([col,sha,num]);
-		$(elementWrapper).appendTo('.patternDiv').hide().fadeIn(250);
+		$('.patternDiv').append(elementWrapper);
 	}
 
 	console.log(patternElements);
@@ -300,8 +264,7 @@ function generateKeyboard(type) {
 	
 	for(i = 0; i < PATTERN_LENGTH; i++) {
 		var id = "#s" + i;
-		$(id).delay(250 * i).fadeOut(250);
-		console.log("fadeout id=" + id);
+		$(id).delay(250 * i).fadeOut(500);
 	}
 	
 	switch(type) {
@@ -438,7 +401,6 @@ function checkInput(button, keyboard) {
 		}
 		//you got the last item. you win
 		else {
-			$(wid).removeClass("currentshape");
 			console.log("WIN WITH " + time_remaining + "s REMAINING");
 			time_under_total += (time_remaining);
 			console.log("TOTAL TIME UNDER TARGET- " + time_under_total + "s");
@@ -487,8 +449,9 @@ function gameOver(win) {
 				patternElements = [];
 			}
 			PATTERN_LENGTH++;
+			TIME_ALLOWED += 2.5;
+			VIEW_TIME += 1000;
 			position = 0;
-			determineTimes();
 			if(remember) {
 				rememberMain();
 			}
@@ -500,7 +463,7 @@ function gameOver(win) {
 
 	}
 	else {
-		var msg = "<h3 class='resulttext losetext'>You forgot.<br>Final Time: -" + time_under_total + "</h3>";
+		var msg = "<h3 class='resulttext losetext'>Sorry, you forgot.<br>Final Score: -" + time_under_total + "s</h3>";
 		$(msg).appendTo('.patternDiv').hide().delay(1200).fadeIn(500);
 	}	
 
