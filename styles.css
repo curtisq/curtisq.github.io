@@ -9,8 +9,13 @@
 h1{
 	font-family: "Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
    font-weight: 100;
-   margin-top: 5%;
+   margin-top: 22px;
    color: #343434;
+}
+
+h1 a{
+color: #515151;
+text-decoration: none;
 }
 
 h2{
@@ -330,7 +335,7 @@ color:#4eb7d1;
 .patternDiv {
 	width:  686px;
 	background-color: #FFF;
-	height: 600px;
+	height: 520px;
 	margin: 0 auto;
 	border-radius:3em 3em 0px 0px;
 }
@@ -338,8 +343,8 @@ color:#4eb7d1;
 .keyboardDiv {
 	width: 686px;
 	background-color: #f7f7f7;
-	height: 175px;
-	min-height: 175px;
+	height: 165px;
+	min-height: 165px;
 	margin: 0 auto;
 	border-radius: 0px 0px 3em 3em;
 	box-shadow: 0px 6px 6px rgba(0,0,0,0.09);
@@ -356,7 +361,7 @@ color:#4eb7d1;
 #mainmenu{
 	width:  686px;
 	background-color: #FFF;
-	height: 800px;
+	height: 680px;
 	margin: 0 auto;
 	margin-bottom: 2em;
 	border-radius:3em;
@@ -407,3 +412,71 @@ background: #95c15b;
 }
 
 /* END MAIN MENU STYLES */
+
+
+/* BEGIN TUTORIAL / Overlay STYLES */
+
+.tutorialbtn{
+	position: absolute;
+	display: block;
+	top: 22px;
+	left: 22px;
+	background: #bebebe;
+	color: white;
+	font-size: .9em;
+	font-weight: bold;
+	text-decoration: none;
+	padding: 11px 22px;
+	border-radius: 2em;
+}
+
+#overlay {
+    display: none; /* ensures it’s invisible until it’s called */
+    position: absolute; /* makes the div go into a position that’s absolute to the browser viewing area */
+    padding: 25px; 
+    border-radius: 3em;
+    background-color: #ffffff;
+    width: 500px;
+    height: 500px;
+    top: 10%;
+    left: 30%;
+    z-index: 310; /* makes the div the top layer, so it’ll lay on top of the other content */
+}
+
+#overlay p{
+	line-height: 2em;
+}
+#overlay img{
+	border: 2px white;
+	border-radius: 1.6em;
+}
+
+#fade {
+    display: none;  /* ensures it’s invisible until it’s called */
+    position: absolute;  /* makes the div go into a position that’s absolute to the browser viewing area */
+    left: 0%; /* makes the div span all the way across the viewing area */
+    top: 0%; /* makes the div span all the way across the viewing area */
+    background: -webkit-linear-gradient(rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 90%);
+    width: 100%;
+    height: 100%;
+    z-index: 300; /* makes the div the second most top layer, so it’ll lay on top of everything else EXCEPT for divs with a higher z-index (meaning the #overlay ruleset) */
+}
+
+.closeoverlay{
+	background: #e3e3e3;
+	position: relative;
+	top: 50px;
+	width: 550px;
+	height: 80px;
+	line-height: 80px !important;
+	margin: -25px;
+	display: block;
+	border-radius:0px 0px 3em 3em;
+	text-decoration: none;
+	color: #474747;
+	font-weight: bold;
+}
+.closeoverlay:hover{
+	background: #f1f1f1;
+	}
+/* END TUTORIAL STYLES */

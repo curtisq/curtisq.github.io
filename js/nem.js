@@ -119,15 +119,16 @@ function getColorClass(col) {
 
 function determineTimes() {
 	if(REMEMBER_PATTERN) {
-		VIEW_TIME = 2 + (VARIABLES * PATTERN_LENGTH / 1.5);
-		TIME_ALLOWED = 3 + (VARIABLES * PATTERN_LENGTH / 2);
+		VIEW_TIME = 1.25 + (VARIABLES * PATTERN_LENGTH / 2.5);
+		TIME_ALLOWED = 3 + (VARIABLES * PATTERN_LENGTH / 1);
 	}
 	else {
-		VIEW_TIME = 2 + (VARIABLES * PATTERN_LENGTH);
-		TIME_ALLOWED = 3 + (VARIABLES * PATTERN_LENGTH / 1.3);
+		VIEW_TIME = 2 + (VARIABLES * PATTERN_LENGTH / 1);
+		TIME_ALLOWED = 3 + (VARIABLES * PATTERN_LENGTH / 1);
 	}
+	TIME_FOR_INCORRECT = TIME_ALLOWED / 10;
 
-	console.log("Round" + PATTERN_LENGTH + "| view:" + VIEW_TIME + " answer:" + TIME_ALLOWED);
+	console.log("Round" + PATTERN_LENGTH + "| view:" + VIEW_TIME + " answer:" + TIME_ALLOWED + " penalty:" + TIME_FOR_INCORRECT);
 	
 	VIEW_TIME *= 1000; //for ms
 }
@@ -195,7 +196,7 @@ function getPatternElement(shapeClass,colorClass,numchar, idnum) {
 
 function bindDifBtn(id, dif) {
 	$(id).click(function(){
-		console.log('Difficulty 0');
+		console.log('Difficulty ' + dif);
 		DIFFICULTY = dif;
 		$("#mainmenu").fadeOut(1000);
 		$("#gameboard").delay(1000).fadeIn(1000);
@@ -211,6 +212,23 @@ function difMenu() {
 	bindDifBtn('#delta', 3);
 	bindDifBtn('#epsilon', 4);
 	bindDifBtn('#zeta', 5);
+
+	$('#tutorial').click(function(){
+		openTutorial();
+	});
+
+	var cookie = $.cookie('first_visit');
+	if(!cookie){
+		console.log("First visit to this site");
+		openTutorial();
+		$.cookie('first_visit', 1);
+	}
+}
+
+function openTutorial() {
+	console.log("Opened Tutorial Overlay");
+	$('overlay').css("display", "block");
+	$('fade').css("display", "block");
 }
 
 function main() {
@@ -300,8 +318,7 @@ function generateKeyboard(type) {
 	
 	for(i = 0; i < PATTERN_LENGTH; i++) {
 		var id = "#s" + i;
-		$(id).delay(250 * i).fadeOut(250);
-		console.log("fadeout id=" + id);
+		$(id).delay(125 * i).fadeOut(250);
 	}
 	
 	switch(type) {
@@ -320,7 +337,7 @@ function generateKeyboard(type) {
 }
 
 function shapeKeyboard() {
-	var keyboard_delay = 250 * PATTERN_LENGTH;
+	var keyboard_delay = 125 * PATTERN_LENGTH;
 
 	var b0 = "<div id='b0' class=" + "'btn pointer shape grey circle2'" + ">" + "</div>";
 	var b1 = "<div id='b1' class=" + "'btn pointer shape grey triangle2'" + ">" + "</div>";
@@ -333,7 +350,7 @@ function shapeKeyboard() {
 }
 
 function colorKeyboard() {
-	var keyboard_delay = 250 * PATTERN_LENGTH;
+	var keyboard_delay = 125 * PATTERN_LENGTH;
 
 	var b0 = "<div id='b0' class=" + "'pointer shape blue circle'" + ">" + "</div>";
 	var b1 = "<div id='b1' class=" + "'pointer shape pink circle'" + ">" + "</div>";
@@ -347,7 +364,7 @@ function colorKeyboard() {
 }
 
 function numberKeyboard() {
-	var keyboard_delay = 250 * PATTERN_LENGTH;
+	var keyboard_delay = 125 * PATTERN_LENGTH;
 
 	var b0 = "<div id='b0' class=" + "'pointer shape grey circle'" + ">" + getNumchar(0, 1) + "</div>";
 	var b1 = "<div id='b1' class=" + "'pointer shape grey circle'" + ">" + getNumchar(1, 1) + "</div>";
@@ -362,14 +379,14 @@ function numberKeyboard() {
 
 //determine time till end
 function createTimer(allowed) {
-	var keyboard_delay = 0.25 * PATTERN_LENGTH + 0.3;
+	var keyboard_delay = 0.125 * PATTERN_LENGTH + 0.3;
 	var end = new Date();
 	start_time = new Date();
 	end.setSeconds(end.getSeconds() + allowed + keyboard_delay);
 	console.log("Timer ends at " + end); 
 	end_time = end;
 
-	timer_id = setInterval(checkTimer, 100);
+	timer_id = setInterval(checkTimer, 75);
 }
 
 function decrementTimer(amount) {
@@ -388,11 +405,18 @@ function checkTimer() {
 	if(now >= end_time) {
 		NProgress.set(1);
 		clearInterval(timer_id);
-		gameOver(0);
+		destroyKeyboard(100);
+		//show pattern
+		for(i = 0; i < PATTERN_LENGTH; i++) {
+			var id = "#s" + i;
+			$(id).fadeIn(250);
+		}
+		//clear gameboard after some time
+		setTimeout(function() {gameOver(0);}, 2500);
 	}
 	//update progress bar
 	else {
-		NProgress.set(pct + 0.01);
+		NProgress.set(pct + 0.03);
 	}
 }
 
@@ -430,7 +454,7 @@ function checkInput(button, keyboard) {
 		var id = "#s" + position;
 		var wid = "#sw" + position;
 		if((position+1) < patternElements.length) {
-			$(id).fadeIn(200);
+			$(id).fadeIn(250);
 			$(wid).removeClass("currentshape");
 			position++;
 			wid = "#sw" + position;
@@ -466,15 +490,16 @@ function destroyKeyboard(ms) {
 function gameOver(win) {
 
 	destroyKeyboard(1000);
+
 	for(i = 0; i < PATTERN_LENGTH; i++) {
 		var id = "#sw" + i;
 		$(id).fadeOut(1000);
 	}
 
-	$('#levelscore').text("-" + time_under_total + " seconds total");
+	$('#levelscore').text("-" + time_under_total.toFixed(2) + " seconds total");
 
 	if(win) {
-		var msg = "<h3 class='resulttext wintext'>You won with " + Math.round(time_remaining) + " of " + TIME_ALLOWED + "<br>seconds remaining." + "</h3>";
+		var msg = "<h3 class='resulttext wintext'>You won with " + Math.round(time_remaining) + " of " + TIME_ALLOWED.toFixed(2) + "<br>seconds remaining." + "</h3>";
 		$(msg).appendTo('.patternDiv').hide().delay(1000).fadeIn(500);
 		//continue
 		var contmsg = "<h3 class='pointer resulttext continue'>Continue</h3>";
@@ -500,7 +525,7 @@ function gameOver(win) {
 
 	}
 	else {
-		var msg = "<h3 class='resulttext losetext'>You forgot.<br>Final Time: -" + time_under_total + "</h3>";
+		var msg = "<h3 class='resulttext losetext'>You forgot.<br>Final Time: -" + time_under_total.toFixed(2) + "</h3>";
 		$(msg).appendTo('.patternDiv').hide().delay(1200).fadeIn(500);
 	}	
 
