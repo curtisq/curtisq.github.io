@@ -213,7 +213,7 @@ function difMenu() {
 	bindDifBtn('#epsilon', 4);
 	bindDifBtn('#zeta', 5);
 
-	$('#tutorial').click(function(){
+	$('.tutorialbtn').click(function(){
 		openTutorial();
 	});
 
@@ -227,8 +227,8 @@ function difMenu() {
 
 function openTutorial() {
 	console.log("Opened Tutorial Overlay");
-	$('overlay').css("display", "block");
-	$('fade').css("display", "block");
+	$('#overlay').css("display", "block");
+	$('#fade').css("display", "block");
 }
 
 function main() {
