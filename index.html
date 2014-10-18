@@ -4,15 +4,14 @@
 <head>
     <title>Nemonico</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript">
-</script>
-    <script src="./js/jquery.cookie.js" type="text/javascript">
-</script>
-    <script src="./js/nprogress.js" type="text/javascript">
-</script>
-    <script src="./js/nem.js" type="text/javascript">
-</script><!--  Disable Zooming -->
-    <meta name="viewport" content="width=750px, user-scalable=0">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+    <script src="./js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="./js/nprogress.js" type="text/javascript"></script>
+    <script src="./js/countUp.min.js" type="text/javascript"></script>
+    <script src="./js/nem.js" type="text/javascript"></script>
+    <!--  Disable Zooming -->
+    <meta name="viewport" content="width=750, user-scalable=0">
 </head>
 
 <body>
@@ -37,32 +36,33 @@
     
     
     <!-- BEGIN LEVEL SELECT -->
-
-    <h1>Nemonico</h1>
-
-    <h2 id="levelscore">Remember Everything</h2>
+<span id="notification">+100</span>
+    <h1 id="levelscore">Nemonico</h1>
 
     <div id="mainmenu">
         <div class="menuwrap">
-            <ul>
-                <li><a id="alpha" href="#">Alpha</a><br>
-                Remember One Thing, Repeating</li>
+            <a id="alpha" href="#"><span>Level 1</span><br>
+                Color Pattern</a>
 
-                <li><a id="beta" href="#">Beta</a><br>
-                Remember Two Things, Repeating </li>
+                <a id="beta" href="#"><span>Level 2</span><br>
+                Color & Shape Pattern</a>
+<!--
 
-                <li><a id="gamma" href="#">Gamma</a><br>
-                Remember Everything, Repeating</li>
+                <a id="gamma" href="#">Level 5<br>
+                Remember Everything, Repeating</a>
+-->
 
-                <li><a id="delta" href="#">Delta</a><br>
-                Remember One Thing, Random</li>
+               <a id="delta" href="#"><span>Level 3</span><br>
+                Colors, Random</a>
 
-                <li><a id="epsilon" href="#">Epsilon</a><br>
-                Remember Two Things, Random</li>
+               <a id="epsilon" href="#"><span>Level 4</span><br>
+                Colors & Shapes, Random</a>
+<!--
 
-                <li><a id="zeta" href="#">Zeta</a><br>
-                Remember Everything, Random</li>
-            </ul>
+                <a id="zeta" href="#">Zeta<br>
+                Remember Everything, Random</a>
+-->
+            
         </div>
     </div><!-- END LEVEL SELECT -->
     
