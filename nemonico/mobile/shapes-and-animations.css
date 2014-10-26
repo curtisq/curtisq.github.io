@@ -1,0 +1,136 @@
+
+
+/* Controls all SVG Elements */
+svg{
+	 width: 100%;
+	 height: 100%;
+	 display: block;
+	 cursor: pointer;
+}
+
+svg .exit{
+	 width: 3%;
+	 height: 3%;
+	 cursor: pointer;
+}
+
+svg:hover{
+	opacity: 0.8;
+}
+
+#keyboard svg:active{
+	 width: 120%;
+	 height: 120%;
+	 margin: -15% !important;
+	 -webkit-transform: translate(5%,5%);
+	 -webkit-filter: blur(3px);
+}
+
+#keyboard #TRIANGLE:active, #keyboard #SQUARE:active, #keyboard #CIRCLE:active, #keyboard #PENTAGON:active{
+	fill: #333;
+}
+
+
+
+/* selector for the SVG wrapper */
+.shape-wrapper{
+	width: 20%;
+	height: 20%;
+	min-height: 100px;
+	min-width: 97px;
+	margin: 1.8% 2.5%;
+	background: url(_svg/dot.png) no-repeat center center;
+	background-size: 25%;
+	float: left;
+	clear: right;
+	overflow: visible;
+}
+
+.shape-wrapper .currentshape{
+	background: url(_svg/dot-active.png) no-repeat center center;
+}
+
+.shape-wrapper:active, .shape-wrapper:hover{
+	background: none;
+}
+
+
+/* Controls Shape Colors and Effects */
+#CIRCLE{
+	 fill: #4eb7d1;
+}
+
+#TRIANGLE{
+	 fill: #ff5d87;	
+}
+
+#SQUARE{
+	 fill: #95c15b;
+}
+
+
+#PENTAGON{
+	 fill: #ffc26c;	
+}
+
+/* Shape Animation Events */
+
+/* MAKE SHAPES APPEAR */
+.appear{
+	-webkit-animation:enter .8s;
+	-webkit-animation-iteration-count: 1;
+}
+
+.appear #TRIANGLE, .appear #SQUARE, .appear #CIRCLE, .appear #PENTAGON{
+	-webkit-animation:entercolor 1s;
+	-webkit-animation-iteration-count: 1;
+}
+
+@-webkit-keyframes enter {
+  0%   {width: 10%; height:10%; -webkit-filter: blur(20px); -webkit-transform: translate(44px, 50px) rotate(-25deg);}
+  100% {-webkit-transform: rotate(0deg);}
+}
+
+@-webkit-keyframes entercolor {
+  0%   {fill: #D0D2D3;}
+  40%   {fill: #D0D2D3;}
+  100% {}
+}
+
+/* MAKE SHAPES GO AWAY */
+.disappear{
+	-webkit-animation:exit 1s;
+	-webkit-animation-iteration-count: 1;
+	background: white;
+}
+
+.disappear polygon{
+	-webkit-animation:exitopacity 1s;
+	-webkit-animation-iteration-count: 1;
+}
+
+.disappear circle{
+	-webkit-animation:exitopacity 1s;
+	-webkit-animation-iteration-count: 1;
+}
+
+.disappear rect{
+	-webkit-animation:exitopacity 1s;
+	-webkit-animation-iteration-count: 1;
+}
+
+@-webkit-keyframes exit {
+  0%   { opacity: 1;  background: rgba(210, 211, 212, 0); }
+  10% {opacity 1; -webkit-transform: translate(8,5); background: rgba(210, 211, 212, 0); border-radius: 50%;}
+  50% { opacity: 1; -webkit-filter: blur(1px); background: #D0D2D3; border-radius: 50%;}
+  100% {opacity: 1; width: 3%; height:3%; -webkit-transform: translate(44px,44px) rotate(190deg); -webkit-filter: blur(0px); background: #D0D2D3; border-radius: 50%;}
+}
+
+@-webkit-keyframes exitopacity {
+  0%   { opacity: 1;}
+  60% {opacity:0;}
+  100%  {opacity:0;}
+}
+
+
+/* END ANIMATIONS */

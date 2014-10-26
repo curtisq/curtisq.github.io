@@ -31,23 +31,14 @@ function Shape(c, s, n) {
 //Globals
 var patternElements = [];
 var PATTERN_LENGTH = 1;
-var MAX_LENGTH = 12;
 var TIME_ALLOWED = 5;
 var VIEW_TIME = 3000;
 var VARIABLES = 1;
 var REMEMBER_PATTERN = 1;
 var DIFFICULTY = 1;
-var NUMCHAR_TYPE = 1;
-var BASE_POINTS = 100;
-var CONTINUE_BUTTON = 0;
 
 var position = 0;
 var total_incorrect = 0;
-var total_correct = 0;
-var streak = 0;
-var current_streak = 0;
-var steak_multiplier = 1;
-var time_total = 0;
 var start_time;
 var end_time;
 var timer_id;
@@ -55,7 +46,7 @@ var game_won = 0;
 var TIME_FOR_INCORRECT = 2.5;
 var time_remaining;
 var time_under_total = 0;
-var total_score = 0;
+
 function setDifficulty() {
 
 	switch(DIFFICULTY) {
@@ -126,22 +117,6 @@ function getColorClass(col) {
 	return colorClass;
 }
 
-function determineTimes() {
-	if(REMEMBER_PATTERN) {
-		VIEW_TIME = 1.25 + (VARIABLES * PATTERN_LENGTH / 2.5);
-		TIME_ALLOWED = 3 + (VARIABLES * PATTERN_LENGTH / 1);
-	}
-	else {
-		VIEW_TIME = 2 + (VARIABLES * PATTERN_LENGTH / 1);
-		TIME_ALLOWED = 3 + (VARIABLES * PATTERN_LENGTH / 1);
-	}
-	TIME_FOR_INCORRECT = TIME_ALLOWED / 10;
-
-	console.log("Round" + PATTERN_LENGTH + "| view:" + VIEW_TIME + " answer:" + TIME_ALLOWED + " penalty:" + TIME_FOR_INCORRECT);
-	
-	VIEW_TIME *= 1000; //for ms
-}
-
 function rememberMain() {
 	var s1 = new Shape();
 	s1.reroll()
@@ -160,7 +135,7 @@ function rememberMain() {
 	
 	for(i = 0; i < PATTERN_LENGTH; i++) {
 		var id = "#sw" + i;
-		$(id).fadeIn(250);
+		$(id).show();
 	}
 
 	console.log(patternElements);
@@ -199,50 +174,30 @@ function getPatternElement(shapeClass,colorClass,numchar, idnum) {
 			break;
 	}
 
-	var elementWrapper = "<div id='sw" + idnum + "' class='wrapper placeholder'>" + element + "</div>";
+	var elementWrapper = "<div id='sw" + idnum + "' class='wrapper'>" + element + "</div>";
 	return elementWrapper;
 }
 
 function bindDifBtn(id, dif) {
 	$(id).click(function(){
-		console.log('Difficulty ' + dif);
+		console.log('Difficulty 0');
 		DIFFICULTY = dif;
 		$("#mainmenu").fadeOut(1000);
-		$("#gameboard").delay(1000).fadeIn(1000);
-		setTimeout(function() {main();}, 2250);
+		main();
 	});
 }
 
 function difMenu() {
-	$("#gameboard").hide();
 	bindDifBtn('#alpha', 0);
 	bindDifBtn('#beta', 1);
 	bindDifBtn('#gamma', 2);
 	bindDifBtn('#delta', 3);
 	bindDifBtn('#epsilon', 4);
 	bindDifBtn('#zeta', 5);
-
-	$('.tutorialbtn').click(function(){
-		openTutorial();
-	});
-
-	var cookie = $.cookie('first_visit');
-	if(!cookie){
-		console.log("First visit to this site");
-		openTutorial();
-		$.cookie('first_visit', 1);
-	}
-}
-
-function openTutorial() {
-	console.log("Opened Tutorial Overlay");
-	$('#overlay').css("display", "block");
-	$('#fade').css("display", "block");
 }
 
 function main() {
 	setDifficulty();
-	determineTimes();
 
 	var s1 = new Shape();
 	var col = s1.getColor();
@@ -262,7 +217,7 @@ function main() {
 		var elementWrapper = getPatternElement(shapeClass, colorClass, numchar, i);
 
 		patternElements.push([col,sha,num]);
-		$(elementWrapper).appendTo('.patternDiv').hide().fadeIn(250);
+		$('.patternDiv').append(elementWrapper);
 	}
 
 	console.log(patternElements);
@@ -285,7 +240,7 @@ function main() {
 
 function getNumchar(num, type) {
 
-	if(typeof(type)==='undefined') type = NUMCHAR_TYPE;
+	if(typeof(type)==='undefined') type = 0;
 	if(type == 0) {
 		switch(num) {
 			case 0:
@@ -327,8 +282,8 @@ function generateKeyboard(type) {
 	
 	for(i = 0; i < PATTERN_LENGTH; i++) {
 		var id = "#s" + i;
-		$(id).delay(125 * i).fadeOut(200);
-		//$(id).delay(100 * i).addClass("placeholder");
+		$(id).delay(250 * i).fadeOut(500);
+		console.log("fadeout id=" + id);
 	}
 	
 	switch(type) {
@@ -347,7 +302,7 @@ function generateKeyboard(type) {
 }
 
 function shapeKeyboard() {
-	var keyboard_delay = 125 * PATTERN_LENGTH;
+	var keyboard_delay = 250 * PATTERN_LENGTH;
 
 	var b0 = "<div id='b0' class=" + "'btn pointer shape grey circle2'" + ">" + "</div>";
 	var b1 = "<div id='b1' class=" + "'btn pointer shape grey triangle2'" + ">" + "</div>";
@@ -360,7 +315,7 @@ function shapeKeyboard() {
 }
 
 function colorKeyboard() {
-	var keyboard_delay = 125 * PATTERN_LENGTH;
+	var keyboard_delay = 250 * PATTERN_LENGTH;
 
 	var b0 = "<div id='b0' class=" + "'pointer shape blue circle'" + ">" + "</div>";
 	var b1 = "<div id='b1' class=" + "'pointer shape pink circle'" + ">" + "</div>";
@@ -374,7 +329,7 @@ function colorKeyboard() {
 }
 
 function numberKeyboard() {
-	var keyboard_delay = 125 * PATTERN_LENGTH;
+	var keyboard_delay = 250 * PATTERN_LENGTH;
 
 	var b0 = "<div id='b0' class=" + "'pointer shape grey circle'" + ">" + getNumchar(0, 1) + "</div>";
 	var b1 = "<div id='b1' class=" + "'pointer shape grey circle'" + ">" + getNumchar(1, 1) + "</div>";
@@ -387,16 +342,16 @@ function numberKeyboard() {
 
 }
 
-//determine time untill end
+//determine time till end
 function createTimer(allowed) {
-	var keyboard_delay = 0.125 * PATTERN_LENGTH + 0.3;
+	var keyboard_delay = 0.25 * PATTERN_LENGTH + 0.3;
 	var end = new Date();
 	start_time = new Date();
 	end.setSeconds(end.getSeconds() + allowed + keyboard_delay);
 	console.log("Timer ends at " + end); 
 	end_time = end;
 
-	timer_id = setInterval(checkTimer, 75);
+	timer_id = setInterval(checkTimer, 100);
 }
 
 function decrementTimer(amount) {
@@ -415,18 +370,11 @@ function checkTimer() {
 	if(now >= end_time) {
 		NProgress.set(1);
 		clearInterval(timer_id);
-		destroyKeyboard(100);
-		//show pattern
-		for(i = 0; i < PATTERN_LENGTH; i++) {
-			var id = "#s" + i;
-			$(id).fadeIn(250);
-		}
-		//clear gameboard after some time
-		setTimeout(function() {gameOver(0);}, 2500);
+		gameOver(0);
 	}
 	//update progress bar
 	else {
-		NProgress.set(pct + 0.03);
+		NProgress.set(pct + 0.01);
 	}
 }
 
@@ -456,43 +404,11 @@ function bindClick(keyboard) {
 
 }
 
-
-function checkMultiplier() {
-
-	if (current_streak < 5) {
-		streak_multiplier = 1;
-	}
-	else if (current_streak >=5 && current_streak < 10) {
-		streak_multiplier = 1.5;
-	}
-	else if (current_streak >=10 && current_streak < 15) {
-		streak_multiplier = 2;
-	}
-	else if (current_streak >=15 && current_streak < 20) {
-		streak_multiplier = 2.5;
-	}
-	else if (current_streak >=25 && current_streak < 30) {
-		streak_multiplier = 3;
-	}
-	else if (current_streak >= 30) {
-		streak_multiplier = 3.5;
-	}
-}
-
 function checkInput(button, keyboard) {
 	
 	var answer = patternElements[position][keyboard];
 	console.log("answer is " + answer + " at position " + position);
 	if(button == answer) {
-		//scoring
-		total_correct++;
-		current_streak++;
-		if(current_streak > streak) streak = current_streak;
-		checkMultiplier();
-		total_score += BASE_POINTS * streak_multiplier
-		$('#levelscore').text("Score: " + total_score);
-
-		//display
 		var id = "#s" + position;
 		var wid = "#sw" + position;
 		if((position+1) < patternElements.length) {
@@ -504,7 +420,6 @@ function checkInput(button, keyboard) {
 		}
 		//you got the last item. you win
 		else {
-			$(wid).removeClass("currentshape");
 			console.log("WIN WITH " + time_remaining + "s REMAINING");
 			time_under_total += (time_remaining);
 			console.log("TOTAL TIME UNDER TARGET- " + time_under_total + "s");
@@ -515,7 +430,6 @@ function checkInput(button, keyboard) {
 	}
 	else {
 		total_incorrect++;
-		current_streak = 0;
 		decrementTimer(TIME_FOR_INCORRECT);
 		console.log("INCORRECT");
 	}
@@ -532,145 +446,53 @@ function destroyKeyboard(ms) {
 
 function gameOver(win) {
 
-	time_total += TIME_ALLOWED - time_remaining;
 	destroyKeyboard(1000);
-	var gameIsOver = 0;
-
 	for(i = 0; i < PATTERN_LENGTH; i++) {
 		var id = "#sw" + i;
 		$(id).fadeOut(1000);
 	}
 
+	$('#levelscore').text("-" + time_under_total + " seconds total");
 
 	if(win) {
+		var msg = "<h3 class='resulttext wintext'>You won with " + Math.round(time_remaining) + " of " + TIME_ALLOWED + "<br>seconds remaining." + "</h3>";
+		$(msg).appendTo('.patternDiv').hide().delay(1000).fadeIn(500);
 		//continue
-		if(PATTERN_LENGTH < MAX_LENGTH) {
-			var msg = "<h3 class='levelwin'>More</h3>";
-			$(msg).appendTo('.patternDiv').hide().delay(1000).fadeIn(10);
-			if(CONTINUE_BUTTON) {
-				var contmsg = "<h3 class='pointer resulttext continue'>Continue</h3>";
-				$(contmsg).appendTo('.patternDiv').hide().delay(1000).slideToggle(300);
+		var contmsg = "<h3 class='pointer resulttext continue'>Continue</h3>";
+		$(contmsg).appendTo('.patternDiv').hide().delay(1000).slideToggle(300);
 
-				$('.continue').click(function(){
-					loadNextRound();
-				});
+		$('.continue').click(function(){
+			var remember = REMEMBER_PATTERN;
+			refreshBoard(remember);
+			if(!remember) {
+				patternElements = [];
 			}
-		}
-		//you beat all rounds
-		else {
-			gameIsOver = 1;
-			calcFinalScore(win);
-			makeStatsDiv(win, 1);
-		}
-	}
-	//lost the game
-	else {
-		gameIsOver = 1;
-		calcFinalScore(win);
-		makeStatsDiv(win, 1);
+			PATTERN_LENGTH++;
+			TIME_ALLOWED += 2.5;
+			VIEW_TIME += 1000;
+			position = 0;
+			if(remember) {
+				rememberMain();
+			}
+			else {
+				main();
+			}
 
-		var retrymsg = "<h3 class='pointer resulttext tryagain'>Play Again</h3>";
-		$(retrymsg).appendTo('.patternDiv').hide().delay(1200).fadeIn(500);
-
-		$('.tryagain').click(function(){
-			window.location.reload();
 		});
-	}	
-	
-	if(!CONTINUE_BUTTON && !gameIsOver) {
-		setTimeout(loadNextRound, 3000);
-	}
 
-	makeStatsDiv(win, 0);
-}
-
-function loadNextRound() {
-	var remember = REMEMBER_PATTERN;
-	refreshBoard(remember);
-	if(!remember) {
-		patternElements = [];
-	}
-	PATTERN_LENGTH++;
-	position = 0;
-	determineTimes();
-	if(remember) {
-		setTimeout(rememberMain, 250);
 	}
 	else {
-		setTimeout(main, 250);
-	}
-}
-
-function makeStatsDiv(win, print) {
-
-	var total_answers = total_correct + total_incorrect;
-	var tperanswer = (time_total/ total_answers).toFixed(2);
-	var streak_bonus = streak * (BASE_POINTS / 2);
-	var time_bonus = Math.round(time_under_total * (BASE_POINTS / 1.3));
-	console.log("STATS| Total_time: " + time_total.toFixed(2) + ", streak: " + streak + ", s/answer: " + tperanswer);
-	console.log("STATS| answers: " + total_answers + ", correct: " + total_correct + ", incorrect: " + total_incorrect);
-	console.log("STATS| score: " + total_score);
-	if(print) {
-		$('#levelscore').text("Nemonico");
-		if(win) {
-			var msg = "<h3 class='resulttext wintext'>Game Completed.</h3>";
-		}
-		else {
-			var msg = "<h3 class='losetext'>You Forgot</h3>";
-		}
-		
-/*
-	<table class='losetext' style='width:80%; margin:1em auto;'>"
-	<h3 class="losetext">You Forgot</h3>
-	    <table class="score" style="width:80%; margin:1em auto;">
-			<tr>
-				<td>Correct Answers</td>
-				<td>50</td>
-			</tr>
-			<tr>
-				<td>Time Bonus</td> 
-				<td>94</td>
-			</tr>
-			<tr>
-				<td>Streak Bonus</td> 
-				<td>94</td>
-			</tr>
-		</table>
-	<h3 class="">Final Score</h3>
-	<h3 class="score">9999</h3>
-*/
-
-		msg += "<table class='scoretable'><tr><td>Score</td><td id='tableresults'>" + total_score + "<span class='points'>pts</span></td></tr>";
-		msg += "<tr><td>Streak Bonus</td><td id='tableresults'>" + streak_bonus + "<span class='points'>pts</div></td></tr>";
-		msg += "<tr><td>Time Bonus</td><td id='tableresults'>" + time_bonus + "<span class='points'>pts</span></td></tr></table>";
-		msg += "<h3 class='finalscore'>Final Score</h3>" + "<h3 class='finalscore score' id='fscorehead'>" + total_score_adjusted + "</h3>";
+		var msg = "<h3 class='resulttext losetext'>Sorry, you forgot.<br>Final Score: -" + time_under_total + "s</h3>";
 		$(msg).appendTo('.patternDiv').hide().delay(1200).fadeIn(500);
-		
-/*		var baseAnim = new countUp("basescoretd", 0, total_score, 0, 6);
-		setTimeout(baseAnim.start, 600);
-		var streakAnim = new countUp("streakbonustd", 0, streak_bonus, 0, 5);
-		setTimeout(streakAnim.start, 1800);
-		var timeAnim = new countUp("timebonustd", 0, time_bonus, 0, 4);
-		setTimeout(timeAnim.start, 3000);
-*/
+	}	
 
-		var finalAnim = new countUp("fscorehead", 0, total_score_adjusted, 0, 4);
-		setTimeout(finalAnim.start, 600);
-	}
-	return;
-}
+	var retrymsg = "<h3 class='pointer resulttext tryagain'>Start Over</h3>";
+	$(retrymsg).appendTo('.patternDiv').hide().delay(1200).fadeIn(500);
 
-function calcFinalScore(win) {
-	console.log("game over total_score is "  + total_score);
-	total_score_adjusted = total_score;
-	total_score_adjusted += time_under_total * (BASE_POINTS / 1.3);
-	total_score_adjusted += streak * (BASE_POINTS /2);
-	if (win) {
-		total_score *= 1.25;
-	}
-	total_score_adjusted = Math.round(total_score_adjusted);
-	console.log("added time for points total score is now " + total_score_adjusted);
-	$('#levelscore').text("Score: " + total_score_adjusted);
+	$('.tryagain').click(function(){
+		window.location.reload();
+	});
+	
 }
 
 function refreshBoard(remember) {
@@ -678,7 +500,6 @@ function refreshBoard(remember) {
 	$('.losetext').fadeOut(500).remove();
 	$('.tryagain').fadeOut(500).remove();
 	$('.continue').fadeOut(500).remove();
-	$('.levelwin').fadeOut(500).remove();
 
 	if(remember){
 	       	return;

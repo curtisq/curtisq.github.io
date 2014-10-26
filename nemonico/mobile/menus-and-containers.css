@@ -1,0 +1,102 @@
+/* GENERAL STYLES */
+
+*{
+	margin: none;
+	padding: none;
+}
+
+/* GAME WRAPPER */
+
+#wrapper{
+	width: 100%;
+	max-width: 500px;
+	margin: 88px auto 176px auto;
+	overflow: hidden;
+	/* background: red; */ /* debug */
+	clear: both;
+}
+
+
+/* KEYBOARD STYLES BEGIN HERE */
+
+/* MAKE SHAPES COLORLESS FOR KEYBOARD */
+#keyboard #CIRCLE, #keyboard #TRIANGLE, #keyboard #SQUARE, #keyboard #PENTAGON{
+	fill: #D0D2D3;
+}
+
+
+#keyboard{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	margin: 0 auto;
+	background: #f8f8f8;
+	display: block;
+	overflow: hidden;
+	height: 176px;
+	z-index: 99;
+	clear: both;
+}
+
+#keyboard .shape-wrapper{
+	width: 20%;
+	height: 20%;
+	margin: 2.5% 2.5%;
+}
+
+
+/* Centering div for web and large devices */
+
+.centerme{
+	max-width: 500px;
+	margin: 0 auto;
+}
+#keyboard .centerme{
+	position: relative;
+	margin-top: 22px;
+	background: none;
+}
+
+#toolbar .centerme{
+	max-width: 400px;
+	width: 80%;
+	
+}
+
+/* TOOL BAR BEGIN */
+
+#toolbar{
+	background: white;
+	position: absolute;
+	width: 100%;
+	top:0;
+	left: 0;
+	opacity: 0.5;
+	height: 88px;
+}
+
+
+/* PROGRESS BAR TIMER */
+
+#nprogress{
+	background:#dbdbdb;
+	z-index:100;
+	width:92%;
+	max-width: 500px;
+	margin:0 auto 22px auto;
+	height:2px;
+	clear: both;
+	border-radius: 2px;
+}
+
+.nprogress-custom-parent {
+	overflow:hidden;
+	position:relative;
+}
+
+.progressBar {
+	margin:0 auto;
+	min-height:4px;
+}
+
