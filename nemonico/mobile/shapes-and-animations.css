@@ -2,8 +2,8 @@
 
 /* Controls all SVG Elements */
 svg{
-	 width: 88px;
-	 height: 88px;
+	 width: 110px;
+	 height: 110px;
 	 display: block;
 	 cursor: pointer;
 }
@@ -19,37 +19,15 @@ svg:hover{
 }
 
 #keyboard svg:active{
-	 width: 110px;
-	 height: 110px;
-	 margin: -11px !important;
+	 width: 121px;
+	 height: 121px;
+	 margin: -5.5px !important;
 	 -webkit-filter: blur(3px);
 }
 
 #keyboard #TRIANGLE:active, #keyboard #SQUARE:active, #keyboard #CIRCLE:active, #keyboard #PENTAGON:active{
 	fill: #333;
 }
-
-
-
-/* selector for the SVG wrapper */
-.shape-wrapper{
-	width: 24%;
-	height: 24%;
-	background: url(_svg/dot.png) no-repeat center center;
-	background-size: 25%;
-	float: left;
-	clear: right;
-	overflow: visible;
-}
-
-.shape-wrapper .currentshape{
-	background: url(_svg/dot-active.png) no-repeat center center;
-}
-
-.shape-wrapper:active, .shape-wrapper:hover{
-	background: none;
-}
-
 
 /* Controls Shape Colors and Effects */
 #CIRCLE{
