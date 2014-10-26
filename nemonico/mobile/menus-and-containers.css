@@ -48,6 +48,7 @@
 /* Centering div for web and large devices */
 
 .centerme{
+	width: 90%;
 	margin: 0 auto;
 }
 #keyboard .centerme{
@@ -57,7 +58,6 @@
 }
 
 #toolbar .centerme{
-	width: 80%;
 	
 }
 
