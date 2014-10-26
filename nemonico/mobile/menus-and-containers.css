@@ -25,7 +25,7 @@
 	min-height: 121px; 
 	min-width: 121px;
 	margin-left: 3%;
-	background: url(svg/dot.png) no-repeat center center;
+	background: url(svg/dot.svg) no-repeat center center;
 	background-size: 25%;
 	float: left;
 	clear: right;
@@ -33,7 +33,7 @@
 }
 
 .shape-wrapper .currentshape{
-	background: url( svg/dot-active.png) no-repeat center center;
+	background: url( svg/dot-active.svg) no-repeat center center;
 }
 
 .shape-wrapper:active, .shape-wrapper:hover{

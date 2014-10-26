@@ -186,51 +186,33 @@ function getPatternElement(shapeClass,colorClass,numchar, idnum) {
 
 	var id = "'s" + idnum + "'";
 	var svgid = "'svg" + idnum + "'";
-	
-	if(SVG) {	
-		var element = '<svg id=' + svgid + 'class="appear" version="1.1" id="Shapes" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 88 88" enable-background="new 0 0 44 44" xml:space="preserve">';
-		switch(VARIABLES) {
-			case 1:
-				element += '<circle id=' + id + ' class="' + colorClass + '" cx="44" cy="44" r="38"/>';
-				element += '</svg>';
-				break;
-			case 2:
-				if(shapeClass == 'circle2 ') {
-				element += '<circle id=' + id + ' class="' + colorClass + '" cx="44" cy="44" r="38"/>';
-				}
-				else if(shapeClass == 'pentagon2 ') {
-				element += '<polygon id=' + id + ' class="' + colorClass + '" points="19.3,80 4,35 44,6 84,35 68.7,80 "/>';
-				}
-				else if(shapeClass == 'triangle2 ') {
-				element += '<polygon id=' + id + ' class="' + colorClass + '" points="4,80 44,8 84,80 "/>';
-				}
-				else if(shapeClass == 'square2 ') {
-				element += '<rect id=' + id + ' class="' + colorClass + '" x="8" y="8" width="72" height="72"/>';
-				}
-				element += '</svg>';
-				break;
-		}
-		var elementWrapper = "<div id='sw" + idnum + "' class='shape-wrapper placeholder'>" + element + "</div>";
-	}
-	else {
-		switch(VARIABLES) {
-			case 1:
-				var classStr = "'shape2 " + colorClass + "circle2" + "'";
-				var element = "<div id=" + id + " class=" + classStr + ">" + "</div>";
-				break;
-			case 2:
-				var classStr = "'shape2 " + colorClass + shapeClass + "'";
-				var element = "<div id=" + id + " class=" + classStr + ">" + "</div>";
-				break;
-			case 3:
-				var classStr = "'shape2 " + colorClass + shapeClass + "'";
-				var element = "<div id=" + id + " class=" + classStr + ">" + numchar + "</div>";
-				break;
-		}
 
-		var elementWrapper = "<div id='sw" + idnum + "' class='wrapper placeholder'>" + element + "</div>";
-	}	
-		return elementWrapper;
+	var element = '<svg id=' + svgid + 'class="appear" version="1.1" id="Shapes" xmlns="http://www.w3.org/2000/svg"';
+        element += ' xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 88 88" enable-background="new 0 0 44 44" xml:space="preserve">';
+
+	switch(VARIABLES) {
+		case 1:
+			element += '<circle id=' + id + ' class="' + colorClass + '" cx="44" cy="44" r="38"/>';
+			element += '</svg>';
+			break;
+		case 2:
+			if(shapeClass == 'circle2 ') {
+				element += '<circle id=' + id + ' class="' + colorClass + '" cx="44" cy="44" r="38"/>';
+			}
+			else if(shapeClass == 'pentagon2 ') {
+				element += '<polygon id=' + id + ' class="' + colorClass + '" points="19.3,80 4,35 44,6 84,35 68.7,80 "/>';
+			}
+			else if(shapeClass == 'triangle2 ') {
+				element += '<polygon id=' + id + ' class="' + colorClass + '" points="4,80 44,8 84,80 "/>';
+			}
+			else if(shapeClass == 'square2 ') {
+				element += '<rect id=' + id + ' class="' + colorClass + '" x="8" y="8" width="72" height="72"/>';
+			}
+			element += '</svg>';
+			break;
+	}
+	var elementWrapper = "<div id='sw" + idnum + "' class='shape-wrapper'>" + element + "</div>";
+	return elementWrapper;
 }
 
 function bindDifBtn(id, dif) {
