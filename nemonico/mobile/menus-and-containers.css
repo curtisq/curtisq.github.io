@@ -11,7 +11,7 @@
 	width: 90%;
 	margin: 88px auto;
 	overflow: hidden;
-	background: red; /* debug */
+	/* background: red; */ /* debug */
 	clear: both;
 }
 
@@ -64,7 +64,9 @@
 }
 
 #keyboard .shape-wrapper{
-	margin: 0;
+	width: 22%;
+	height: 22%;
+	margin: 1.5%;
 }
 
 
@@ -82,7 +84,8 @@
 }
 
 #toolbar .centerme{
-	
+	width: 80%;
+	max-width: 600px;
 }
 
 /* TOOL BAR BEGIN */
@@ -103,7 +106,7 @@
 #nprogress{
 	background:#dbdbdb;
 	z-index:100;
-	width:100%;
+	width:92%;
 	margin:0 auto 22px auto;
 	height:2px;
 	clear: both;
