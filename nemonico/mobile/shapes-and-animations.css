@@ -33,8 +33,8 @@ svg:hover{
 
 /* selector for the SVG wrapper */
 .shape-wrapper{
-	width: 20%;
-	height: 20%;
+	width: 21%;
+	height: 21%;
 	margin: 2%;
 	background: url(_svg/dot.png) no-repeat center center;
 	background-size: 25%;

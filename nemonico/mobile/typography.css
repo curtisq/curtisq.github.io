@@ -9,10 +9,10 @@ body {
 	background:white;
 	text-align:center;
 	-webkit-user-select: none;
-     -moz-user-select: -moz-none;
-      -ms-user-select: none;
-          user-select: none;
-          overflow: hidden;
+    -moz-user-select: -moz-none;
+    -ms-user-select: none;
+    user-select: none;
+    overflow: hidden;
 }
 
 h1 {
