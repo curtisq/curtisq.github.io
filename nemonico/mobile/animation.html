@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Animation test sheet</title>
+
+    <link rel="stylesheet" type="text/css" href="typography.css" />
+    <link rel="stylesheet" type="text/css" href="menus-and-containers.css" />
+    
+    <style type="text/css">
+	    
+
+/* Controls all SVG Elements */
+svg{
+	 width: 110px;
+	 height: 110px;
+	 display: block;
+	 cursor: pointer;
+}
+
+svg .exit{
+	 width: 10px;
+	 height: 10px;
+	 cursor: pointer;
+}
+
+svg:hover{
+	opacity: 0.8;
+}
+
+#keyboard svg:active{
+	 width: 121px;
+	 height: 121px;
+	 margin: -5.5px !important;
+	 -webkit-filter: blur(3px);
+}
+
+#keyboard #TRIANGLE:active, #keyboard #SQUARE:active, #keyboard #CIRCLE:active, #keyboard #PENTAGON:active{
+	fill: #333;
+}
+
+/* Controls Shape Colors and Effects */
+#CIRCLE{
+	 fill: #4eb7d1;
+}
+
+#TRIANGLE{
+	 fill: #ff5d87;	
+}
+
+#SQUARE{
+	 fill: #95c15b;
+}
+
+
+#PENTAGON{
+	 fill: #ffc26c;	
+}
+
+/* Shape Animation Events */
+
+/* MAKE SHAPES APPEAR */
+.appear{
+	-webkit-animation:enter 4s;
+	-webkit-animation-iteration-count: infinite;
+}
+
+.appear #TRIANGLE, .appear #SQUARE, .appear #CIRCLE, .appear #PENTAGON{
+	-webkit-animation:entercolor 4s;
+	-webkit-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes enter {
+  0%   {/* -webkit-filter: blur(20px); */ width:11px; height 11px; -webkit-transform: translate(44px, -11px) rotate(-185deg);}
+  100% {-webkit-transform: translate(0, 0) rotate(0deg);}
+}
+
+@-webkit-keyframes entercolor {
+  0%   {fill: #D0D2D3;}
+  40%   {fill: #D0D2D3;}
+  100% {}
+}
+
+/* MAKE SHAPES GO AWAY */
+
+.disappear{
+	-webkit-animation:exit 4s;
+	-webkit-animation-iteration-count: 1;
+	background: white;
+}
+
+
+.disappear polygon{
+	-webkit-animation:exitopacity 4s;
+	-webkit-animation-iteration-count: 1;
+}
+
+.disappear circle{
+	-webkit-animation:exitopacity 4s;
+	-webkit-animation-iteration-count: 1;
+}
+
+.disappear rect{
+	-webkit-animation:exitopacity 4s;
+	-webkit-animation-iteration-count: 1;
+}
+
+
+@-webkit-keyframes exit {
+  0%   { opacity: 1;  background: rgba(210, 211, 212, 0); width: 110px; height:110px}
+  100% {opacity: 1;-webkit-transform: translate(56px, 44px); -webkit-filter: blur(0px); background: #D0D2D3; border-radius: 88px; width: 5px; height:5px}
+}
+
+
+@-webkit-keyframes exitopacity {
+  0% { opacity: 1;}
+  60% {opacity:0;}
+  100%  {opacity:0;}
+}
+
+
+/* END ANIMATIONS */
+	    </style>
+	    
+
+    <meta name="viewport" content="width=640, user-scalable=0">
+  </head>
+
+  <body>
+
+    <div id="toolbar">
+      <div class="centerme">
+        <div id='notificationdiv'><span id="notification">YEUH</span></div>
+        <h1 id="levelscore">Nemonico</h1>
+      </div>
+    </div>
+
+
+    <div id="wrapper">
+      <div id="nprogress"></div>
+      <div class='progressBar'></div>
+      <div id="gameboard">
+        <div class="shape-wrapper">
+          <svg class="appear" version="1.1" id="Shapes" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          viewBox="0 0 88 88" enable-background="new 0 0 44 44" xml:space="preserve">
+          <circle id="CIRCLE" cx="44" cy="44" r="38"/>
+          </svg>
+        </div>
+
+
+        <div class="shape-wrapper">
+          <svg class="appear" version="1.1" id="Shapes" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          viewBox="0 0 88 88" enable-background="new 0 0 88 88" xml:space="preserve">
+          <polygon id="PENTAGON" points="19.3,80 4,35 44,6 84,35 68.7,80 "/>
+          </svg>
+        </div>
+
+
+        <div class="shape-wrapper">
+          <svg class="disappear" version="1.1" id="Shapes" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          viewBox="0 0 88 88" enable-background="new 0 0 88 88" xml:space="preserve">
+          <polygon id="TRIANGLE" points="4,80 44,8 84,80 "/>
+          </svg>
+        </div>
+
+
+        <div class="shape-wrapper">
+          <svg class="appear" version="1.1" id="Shapes" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          viewBox="0 0 88 88" enable-background="new 0 0 88 88" xml:space="preserve">
+          <rect id="SQUARE" x="8" y="8" width="72" height="72"/>
+          </svg>
+        </div>
+
+        <div class="shape-wrapper">
+          <svg class="appear" version="1.1" id="Shapes" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          viewBox="0 0 88 88" enable-background="new 0 0 44 44" xml:space="preserve">
+          <circle id="CIRCLE" cx="44" cy="44" r="38"/>
+          </svg>
+        </div>
+
+
+        <div class="shape-wrapper">
+          <svg class="appear" version="1.1" id="Shapes" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          viewBox="0 0 88 88" enable-background="new 0 0 88 88" xml:space="preserve">
+          <polygon id="PENTAGON" points="19.3,80 4,35 44,6 84,35 68.7,80 "/>
+          </svg>
+        </div>
+
+
+        <div class="shape-wrapper">
+          <svg class="disappear" version="1.1" id="Shapes" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          viewBox="0 0 88 88" enable-background="new 0 0 88 88" xml:space="preserve">
+          <polygon id="TRIANGLE" points="4,80 44,8 84,80 "/>
+          </svg>
+        </div>
+
+
+        <div class="shape-wrapper">
+          <svg class="appear" version="1.1" id="Shapes" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          viewBox="0 0 88 88" enable-background="new 0 0 88 88" xml:space="preserve">
+          <rect id="SQUARE" x="8" y="8" width="72" height="72"/>
+          </svg>
+        </div>
+
+        <div class="shape-wrapper">
+          <svg class="appear" version="1.1" id="Shapes" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          viewBox="0 0 88 88" enable-background="new 0 0 44 44" xml:space="preserve">
+          <circle id="CIRCLE" cx="44" cy="44" r="38"/>
+          </svg>
+        </div>
+
+
+        <div class="shape-wrapper">
+          <svg class="appear" version="1.1" id="Shapes" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          viewBox="0 0 88 88" enable-background="new 0 0 88 88" xml:space="preserve">
+          <polygon id="PENTAGON" points="19.3,80 4,35 44,6 84,35 68.7,80 "/>
+          </svg>
+        </div>
+
+
+        <div class="shape-wrapper">
+          <svg class="disappear" version="1.1" id="Shapes" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          viewBox="0 0 88 88" enable-background="new 0 0 88 88" xml:space="preserve">
+          <polygon id="TRIANGLE" points="4,80 44,8 84,80 "/>
+          </svg>
+        </div>
+
+
+        <div class="shape-wrapper">
+          <svg class="appear" version="1.1" id="Shapes" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          viewBox="0 0 88 88" enable-background="new 0 0 88 88" xml:space="preserve">
+          <rect id="SQUARE" x="8" y="8" width="72" height="72"/>
+          </svg>
+        </div>
+
+        <div class="shape-wrapper">
+          <svg class="appear" version="1.1" id="Shapes" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          viewBox="0 0 88 88" enable-background="new 0 0 44 44" xml:space="preserve">
+          <circle id="CIRCLE" cx="44" cy="44" r="38"/>
+          </svg>
+        </div>
+
+
+        <div class="shape-wrapper">
+          <svg class="appear" version="1.1" id="Shapes" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          viewBox="0 0 88 88" enable-background="new 0 0 88 88" xml:space="preserve">
+          <polygon id="PENTAGON" points="19.3,80 4,35 44,6 84,35 68.7,80 "/>
+          </svg>
+        </div>
+
+
+        <div class="shape-wrapper">
+          <svg class="disappear" version="1.1" id="Shapes" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          viewBox="0 0 88 88" enable-background="new 0 0 88 88" xml:space="preserve">
+          <polygon id="TRIANGLE" points="4,80 44,8 84,80 "/>
+          </svg>
+        </div>
+
+
+        <div class="shape-wrapper">
+          <svg class="appear" version="1.1" id="Shapes" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          viewBox="0 0 88 88" enable-background="new 0 0 88 88" xml:space="preserve">
+          <rect id="SQUARE" x="8" y="8" width="72" height="72"/>
+          </svg>
+        </div>
+
+        <div class="shape-wrapper">
+          <svg class="appear" version="1.1" id="Shapes" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          viewBox="0 0 88 88" enable-background="new 0 0 44 44" xml:space="preserve">
+          <circle id="CIRCLE" cx="44" cy="44" r="38"/>
+          </svg>
+        </div>
+
+
+        <div class="shape-wrapper">
+          <svg class="appear" version="1.1" id="Shapes" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          viewBox="0 0 88 88" enable-background="new 0 0 88 88" xml:space="preserve">
+          <polygon id="PENTAGON" points="19.3,80 4,35 44,6 84,35 68.7,80 "/>
+          </svg>
+        </div>
+
+
+        <div class="shape-wrapper">
+          <svg class="disappear" version="1.1" id="Shapes" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          viewBox="0 0 88 88" enable-background="new 0 0 88 88" xml:space="preserve">
+          <polygon id="TRIANGLE" points="4,80 44,8 84,80 "/>
+          </svg>
+        </div>
+
+
+        <div class="shape-wrapper">
+          <svg class="appear" version="1.1" id="Shapes" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          viewBox="0 0 88 88" enable-background="new 0 0 88 88" xml:space="preserve">
+          <rect id="SQUARE" x="8" y="8" width="72" height="72"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div id="keyboard">
+      <div class="centerme">
+        <div class="shape-wrapper">
+          <svg class="" version="1.1" id="Shapes" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          viewBox="0 0 88 88" enable-background="new 0 0 44 44" xml:space="preserve">
+          <circle id="CIRCLE" cx="44" cy="44" r="38"/>
+          </svg>
+        </div>
+
+
+        <div class="shape-wrapper">
+          <svg class="" version="1.1" id="Shapes" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          viewBox="0 0 88 88" enable-background="new 0 0 88 88" xml:space="preserve">
+          <polygon id="PENTAGON" points="19.3,80 4,35 44,6 84,35 68.7,80 "/>
+          </svg>
+        </div>
+
+
+        <div class="shape-wrapper">
+          <svg class="" version="1.1" id="Shapes" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          viewBox="0 0 88 88" enable-background="new 0 0 88 88" xml:space="preserve">
+          <polygon id="TRIANGLE" points="4,80 44,8 84,80 "/>
+          </svg>
+        </div>
+
+
+        <div class="shape-wrapper">
+          <svg class="" version="1.1" id="Shapes" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          viewBox="0 0 88 88" enable-background="new 0 0 88 88" xml:space="preserve">
+          <rect id="SQUARE" x="8" y="8" width="72" height="72"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+
+  </body>
+
+</html>
+
