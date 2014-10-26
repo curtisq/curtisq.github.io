@@ -97,15 +97,13 @@ svg:hover{
 
 
 @-webkit-keyframes exit {
-  0%   { opacity: 1;  background: rgba(210, 211, 212, 0); }
-  10% {opacity 1; -webkit-transform: translate(8,5); background: rgba(210, 211, 212, 0); border-radius: 88px;}
-  50% { opacity: 1; -webkit-filter: blur(1px); background: #D0D2D3; border-radius: 88px;}
-  100% {opacity: 1;-webkit-transform: rotate(190deg); -webkit-filter: blur(0px); background: #D0D2D3; border-radius: 50%;}
+  0%   { opacity: 1;  background: rgba(210, 211, 212, 0); width: 110px; height:110px}
+  100% {opacity: 1;-webkit-transform: translate(56px, 44px); -webkit-filter: blur(0px); background: #D0D2D3; border-radius: 88px; width: 5px; height:5px}
 }
 
 
 @-webkit-keyframes exitopacity {
-  0%   { opacity: 1;}
+  0% { opacity: 1;}
   60% {opacity:0;}
   100%  {opacity:0;}
 }
