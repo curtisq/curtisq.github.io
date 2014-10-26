@@ -20,9 +20,11 @@
 
 /* selector for the SVG wrapper */
 .shape-wrapper{
-	width: 22%;
-	height: 22%;
-	margin: 1.5%;
+	width: 121px;
+	height: 121px;
+	min-height: 121px; 
+	min-width: 121px;
+	margin-left: 3%;
 	background: url(svg/dot.png) no-repeat center center;
 	background-size: 25%;
 	float: left;
