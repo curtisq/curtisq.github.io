@@ -72,13 +72,13 @@ svg:hover{
 }
 
 /* MAKE SHAPES GO AWAY */
-/*
+
 .disappear{
 	-webkit-animation:exit 1s;
 	-webkit-animation-iteration-count: 1;
 	background: white;
 }
-*/
+
 
 .disappear polygon{
 	-webkit-animation:exitopacity 1s;
@@ -98,8 +98,8 @@ svg:hover{
 
 @-webkit-keyframes exit {
   0%   { opacity: 1;  background: rgba(210, 211, 212, 0); }
-  10% {opacity 1; -webkit-transform: translate(8,5); background: rgba(210, 211, 212, 0); border-radius: 50%;}
-  50% { opacity: 1; -webkit-filter: blur(1px); background: #D0D2D3; border-radius: 50%;}
+  10% {opacity 1; -webkit-transform: translate(8,5); background: rgba(210, 211, 212, 0); border-radius: 88px;}
+  50% { opacity: 1; -webkit-filter: blur(1px); background: #D0D2D3; border-radius: 88px;}
   100% {opacity: 1;-webkit-transform: rotate(190deg); -webkit-filter: blur(0px); background: #D0D2D3; border-radius: 50%;}
 }
 
