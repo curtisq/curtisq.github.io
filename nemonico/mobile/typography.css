@@ -38,8 +38,8 @@ h2 {
 
 #toolbar #levelscore{
 	text-align: left;
-	line-height: 22px;
-	font-size: 2em;
+	line-height: 33px;
+	font-size: 3em;
 	font-weight: 300;
 	color: #262626 !important;
 }
@@ -241,10 +241,12 @@ text-align: right;
 }
 
 #notification{
+	font-size: 4em;
 	font-weight: 800;
 	color: #95c15b;
-	position: relative;
+	position: absolute;
 	display: block;
+	left: 200px;
 	opacity: 0;
 	top:0px;
 	-webkit-animation:ghost 1s;

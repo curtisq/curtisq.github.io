@@ -61,8 +61,8 @@ svg:hover{
 }
 
 @-webkit-keyframes enter {
-  0%   {-webkit-filter: blur(20px); -webkit-transform: rotate(-185deg);}
-  100% {-webkit-transform: rotate(0deg);}
+  0%   {-webkit-filter: blur(20px); width:11px; height 11px; -webkit-transform: translate(-44px 44px) rotate(-185deg);}
+  100% {-webkit-transform: translate(44px 44px) rotate(0deg);}
 }
 
 @-webkit-keyframes entercolor {
