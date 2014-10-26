@@ -2,15 +2,15 @@
 
 /* Controls all SVG Elements */
 svg{
-	 width: 100%;
-	 height: 100%;
+	 width: 88px;
+	 height: 88px;
 	 display: block;
 	 cursor: pointer;
 }
 
 svg .exit{
-	 width: 3%;
-	 height: 3%;
+	 width: 10px;
+	 height: 10px;
 	 cursor: pointer;
 }
 
@@ -19,10 +19,9 @@ svg:hover{
 }
 
 #keyboard svg:active{
-	 width: 120%;
-	 height: 120%;
-	 margin: -15% !important;
-	 -webkit-transform: translate(5%,5%);
+	 width: 110px;
+	 height: 110px;
+	 margin: -11px !important;
 	 -webkit-filter: blur(3px);
 }
 
@@ -36,9 +35,7 @@ svg:hover{
 .shape-wrapper{
 	width: 20%;
 	height: 20%;
-	min-height: 100px;
-	min-width: 97px;
-	margin: 1.8% 2.5%;
+	margin: 2%;
 	background: url(_svg/dot.png) no-repeat center center;
 	background-size: 25%;
 	float: left;
@@ -87,7 +84,7 @@ svg:hover{
 }
 
 @-webkit-keyframes enter {
-  0%   {width: 10%; height:10%; -webkit-filter: blur(20px); -webkit-transform: translate(44px, 50px) rotate(-25deg);}
+  0%   {-webkit-filter: blur(20px); -webkit-transform: rotate(-185deg);}
   100% {-webkit-transform: rotate(0deg);}
 }
 
@@ -98,11 +95,13 @@ svg:hover{
 }
 
 /* MAKE SHAPES GO AWAY */
+/*
 .disappear{
 	-webkit-animation:exit 1s;
 	-webkit-animation-iteration-count: 1;
 	background: white;
 }
+*/
 
 .disappear polygon{
 	-webkit-animation:exitopacity 1s;
@@ -119,12 +118,14 @@ svg:hover{
 	-webkit-animation-iteration-count: 1;
 }
 
+
 @-webkit-keyframes exit {
   0%   { opacity: 1;  background: rgba(210, 211, 212, 0); }
   10% {opacity 1; -webkit-transform: translate(8,5); background: rgba(210, 211, 212, 0); border-radius: 50%;}
   50% { opacity: 1; -webkit-filter: blur(1px); background: #D0D2D3; border-radius: 50%;}
-  100% {opacity: 1; width: 3%; height:3%; -webkit-transform: translate(44px,44px) rotate(190deg); -webkit-filter: blur(0px); background: #D0D2D3; border-radius: 50%;}
+  100% {opacity: 1;-webkit-transform: rotate(190deg); -webkit-filter: blur(0px); background: #D0D2D3; border-radius: 50%;}
 }
+
 
 @-webkit-keyframes exitopacity {
   0%   { opacity: 1;}

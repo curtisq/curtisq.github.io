@@ -9,7 +9,7 @@
 
 #wrapper{
 	width: 100%;
-	max-width: 500px;
+	max-width: 640px;
 	margin: 88px auto 176px auto;
 	overflow: hidden;
 	/* background: red; */ /* debug */
@@ -49,7 +49,7 @@
 /* Centering div for web and large devices */
 
 .centerme{
-	max-width: 500px;
+	max-width: 640px;
 	margin: 0 auto;
 }
 #keyboard .centerme{
@@ -59,7 +59,7 @@
 }
 
 #toolbar .centerme{
-	max-width: 400px;
+	max-width: 640px;
 	width: 80%;
 	
 }
@@ -83,7 +83,7 @@
 	background:#dbdbdb;
 	z-index:100;
 	width:92%;
-	max-width: 500px;
+	max-width: 640px;
 	margin:0 auto 22px auto;
 	height:2px;
 	clear: both;
