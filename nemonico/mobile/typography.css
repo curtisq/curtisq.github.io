@@ -246,7 +246,7 @@ text-align: right;
 	color: #95c15b;
 	position: absolute;
 	display: block;
-	left: 200px;
+	right: 88px;
 	opacity: 0;
 	top:0px;
 	-webkit-animation:ghost 1s;
