@@ -249,7 +249,7 @@ text-align: right;
 	right: 88px;
 	opacity: 0;
 	top:0px;
-	-webkit-animation:ghost 1s;
+	-webkit-animation:ghost 1.5s;
 }
 
 @-webkit-keyframes ghost {
