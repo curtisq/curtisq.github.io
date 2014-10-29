@@ -18,18 +18,8 @@ svg:hover{
 	opacity: 0.8;
 }
 
-#keyboard svg:active{
-	 width: 121px;
-	 height: 121px;
-	 margin: -5.5px !important;
-	 -webkit-filter: blur(3px);
-}
-
-#keyboard #TRIANGLE:active, #keyboard #SQUARE:active, #keyboard #CIRCLE:active, #keyboard #PENTAGON:active{
-	fill: #333;
-}
-
 /* Controls Shape Colors and Effects */
+/*
 #CIRCLE{
 	 fill: #4eb7d1;
 }
@@ -46,22 +36,64 @@ svg:hover{
 #PENTAGON{
 	 fill: #ffc26c;	
 }
+*/
+
+.blue{
+	 fill: #4eb7d1;
+}
+
+.pink{
+	 fill: #ff5d87;	
+}
+
+.green{
+	 fill: #95c15b;
+}
+
+
+.yellow{
+	 fill: #ffc26c;	
+}
+
+#keyboard .blue{
+	 background: #4eb7d1 !important;
+	 border-radius: 88px;
+	 opacity: 1.0;
+}
+
+#keyboard .pink{
+	 background: #ff5d87 !important;
+	 border-radius: 88px;	
+	 opacity: 1.0;
+}
+
+#keyboard .green{
+	 background: #95c15b !important;
+	 border-radius: 88px;
+	 opacity: 1.0;
+}
+
+#keyboard .yellow{
+	 background: #ffc26c !important;
+	 border-radius: 88px;
+	 opacity: 1.0;	
+}
 
 /* Shape Animation Events */
 
 /* MAKE SHAPES APPEAR */
 .appear{
-	-webkit-animation:enter .8s;
+	-webkit-animation:enter .3s;
 	-webkit-animation-iteration-count: 1;
 }
 
 .appear #TRIANGLE, .appear #SQUARE, .appear #CIRCLE, .appear #PENTAGON{
-	-webkit-animation:entercolor 1s;
+	-webkit-animation:entercolor .3s;
 	-webkit-animation-iteration-count: 1;
 }
 
-@-webkit-keyframes enter {
-  0%   {/* -webkit-filter: blur(20px); */ width:11px; height 11px; -webkit-transform: translate(60px, 8px) rotate(-185deg);}
+@-webkit-keyframes enter{
+  0%   {width:6px; height 6px; -webkit-transform: translate(64px, 8px) rotate(-185deg);}
   100% {-webkit-transform: translate(0, 0) rotate(0deg);}
 }
 
@@ -74,24 +106,24 @@ svg:hover{
 /* MAKE SHAPES GO AWAY */
 
 .disappear{
-	-webkit-animation:exit .8s;
+	-webkit-animation:exit .5s;
 	-webkit-animation-iteration-count: 1;
 	background: white;
 }
 
 
 .disappear polygon{
-	-webkit-animation:exitopacity .8s;
+	-webkit-animation:exitopacity .4s;
 	-webkit-animation-iteration-count: 1;
 }
 
 .disappear circle{
-	-webkit-animation:exitopacity .8s;
+	-webkit-animation:exitopacity .4s;
 	-webkit-animation-iteration-count: 1;
 }
 
 .disappear rect{
-	-webkit-animation:exitopacity .8s;
+	-webkit-animation:exitopacity .4s;
 	-webkit-animation-iteration-count: 1;
 }
 

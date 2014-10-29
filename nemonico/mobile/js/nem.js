@@ -56,6 +56,18 @@ var TIME_FOR_INCORRECT = 2.5;
 var time_remaining;
 var time_under_total = 0;
 var total_score = 0;
+
+
+function start() {
+	//This removes 300ms delay on click for mobile browsers. Yay!
+	$(function() {
+		    FastClick.attach(document.body);
+	});
+
+	main();
+}
+
+
 function setDifficulty() {
 
 	switch(DIFFICULTY) {
@@ -152,39 +164,47 @@ function rememberMain() {
 	var colorClass = getColorClass(col);
 	var numchar = getNumchar(num, 1);
 
-	var elementWrapper = getPatternElement(shapeClass, colorClass, numchar, PATTERN_LENGTH-1);
+	var elementWrapper = getPatternElement(shapeClass, colorClass, numchar, PATTERN_LENGTH-1, 0);
 
 	patternElements.push([col,sha,num]);
 	
-	$(elementWrapper).appendTo('.patternDiv').hide();
+	$(elementWrapper).appendTo('#gameboard');
 	
 	for(i = 0; i < PATTERN_LENGTH; i++) {
-		var id = "#sw" + i;
-		$(id).fadeIn(250);
+		var id = "#svg" + i;
+		var swid = "#sw" + i;
+		$(swid).show();
+		$(id).attr("class", "appear");
+		$(id).show();
 	}
 
 	console.log(patternElements);
+	/*
 	NProgress.configure({ minimum: 0.0 });
 	NProgress.configure({ trickle: false });
 	NProgress.configure({ ease: 'ease', speed: 200 });
 	NProgress.configure({ parent: '.progressBar' });
 	NProgress.set(0.0);
-
+	*/
 	//return;
 	var keyboardType = Math.floor((Math.random() * VARIABLES));
 
 	setTimeout(function(){
-		generateKeyboard(keyboardType);
-		bindClick(keyboardType);
-		createTimer(TIME_ALLOWED);
+		hidePattern(15);
+		setTimeout(function(){
+			generateKeyboard(keyboardType);
+			bindClick(keyboardType, 1);
+			createTimer(TIME_ALLOWED);
+		}, 550);
 	}, VIEW_TIME);
 
 }
 
-function getPatternElement(shapeClass,colorClass,numchar, idnum) {
+function getPatternElement(shapeClass,colorClass,numchar, idnum, button) {
 	var SVG = 1;
 
 	var id = "'s" + idnum + "'";
+	if(button) id= "'b" + idnum + "'";
 	var svgid = "'svg" + idnum + "'";
 
 	var element = '<svg id=' + svgid + 'class="appear" version="1.1" id="Shapes" xmlns="http://www.w3.org/2000/svg"';
@@ -271,26 +291,30 @@ function main() {
 		var colorClass = getColorClass(col);
 		var numchar = getNumchar(num, 1);
 
-		var elementWrapper = getPatternElement(shapeClass, colorClass, numchar, i);
+		var elementWrapper = getPatternElement(shapeClass, colorClass, numchar, i, 0);
 
 		patternElements.push([col,sha,num]);
-		$(elementWrapper).appendTo('.patternDiv').hide().fadeIn(250);
+		$(elementWrapper).appendTo('#gameboard');
 	}
 
 	console.log(patternElements);
+/*
 	NProgress.configure({ minimum: 0.0 });
 	NProgress.configure({ trickle: false });
 	NProgress.configure({ ease: 'ease', speed: 200 });
 	NProgress.configure({ parent: '.progressBar' });
 	NProgress.set(0.0);
-
+*/
 	//return;
 	var keyboardType = Math.floor((Math.random() * VARIABLES));
 
 	setTimeout(function(){
-		generateKeyboard(keyboardType);
-		bindClick(keyboardType);
-		createTimer(TIME_ALLOWED);
+		hidePattern(15);
+		setTimeout(function(){
+			generateKeyboard(keyboardType);
+			bindClick(keyboardType, 1);
+			createTimer(TIME_ALLOWED);
+		}, 550);
 	}, VIEW_TIME);
 
 }
@@ -336,39 +360,22 @@ function getNumchar(num, type) {
 
 
 function hidePattern(delay) {
-	var SVG = 1;
-	
-	if(SVG) {
-		for(i = 0; i < PATTERN_LENGTH; i++) {
-			var id = "#s" + i;
-			var svgid = "#svg" + i;
-			if(delay){
-				$(svgid).delay(delay * i).attr("class", "disappear");
-				$(id).delay(600).fadeOut(10);
-				console.log("add disappear to " + svgid);
-			}
-			else{
-				$(svgid).attr("class", "disappear").delay(600).hide();
-			}
+	for(i = 0; i < PATTERN_LENGTH; i++) {
+		var id = "#s" + i;
+		var svgid = "#svg" + i;
+		if(delay){
+			$(svgid).delay(delay * i).attr("class", "disappear").fadeOut(500);
+			//$(svgid).delay(500).attr("class", "");
 		}
-	}
-	else {
-		for(i = 0; i < PATTERN_LENGTH; i++) {
-			var id = "#s" + i;
-			if(delay){
-				$(id).delay(delay * i).fadeOut(200);
-			}
-			else{
-				$(id).fadeOut(200);	
-			}
+		else{
+			$(svgid).attr("class", "disappear").fadeOut(500);
+			$(svgid).delay(500).attr("class", "");
 		}
 	}
 }
 
 function generateKeyboard(type) {
-
-	hidePattern(125);
-
+	
 	switch(type) {
 		case 0:
 			colorKeyboard();
@@ -386,43 +393,40 @@ function generateKeyboard(type) {
 
 function shapeKeyboard() {
 	var keyboard_delay = 125 * PATTERN_LENGTH;
+/*
+	var b0 = getPatternElement("circle2 ", "grey ", 1, 0, 1);
+	var b1 = getPatternElement("triangle2 ", "grey ", 1, 1, 1);
+	var b2 = getPatternElement("square2 ", "grey ", 1, 2, 1);
+	var b3 = getPatternElement("pentagon2 ", "grey ", 1, 3, 1);
+*/	
+	var b0 = '<div id="b0" class="shape-wrapper circle"></div>';
+	var b1 = '<div id="b1" class="shape-wrapper triangle"></div>';
+	var b2 = '<div id="b2" class="shape-wrapper square"></div>';
+	var b3 = '<div id="b3" class="shape-wrapper pentagon"></div>';
 
-	var b0 = "<div id='b0' class=" + "'btn pointer shape grey circle2'" + ">" + "</div>";
-	var b1 = "<div id='b1' class=" + "'btn pointer shape grey triangle2'" + ">" + "</div>";
-	var b2 = "<div id='b2' class=" + "'btn pointer shape grey square2'" + ">" + "</div>";
-	var b3 = "<div id='b3' class=" + "'btn pointer shape grey pentagon2'" + ">" + "</div>";
-	$(b0).appendTo('.keyboardDiv').hide().delay(keyboard_delay).fadeIn(250);
-	$(b1).appendTo('.keyboardDiv').hide().delay(keyboard_delay).fadeIn(250);
-	$(b2).appendTo('.keyboardDiv').hide().delay(keyboard_delay).fadeIn(250);
-	$(b3).appendTo('.keyboardDiv').hide().delay(keyboard_delay).fadeIn(250);
+	$(b0).delay(keyboard_delay).appendTo('#keyContent');
+	$(b3).delay(keyboard_delay).appendTo('#keyContent');
+	$(b1).delay(keyboard_delay).appendTo('#keyContent');
+	$(b2).delay(keyboard_delay).appendTo('#keyContent');
 }
 
 function colorKeyboard() {
 	var keyboard_delay = 125 * PATTERN_LENGTH;
+/*
+	var b0 = getPatternElement("circle2 ", "blue ", 1, 0, 1);
+	var b1 = getPatternElement("circle2 ", "pink ", 1, 1, 1);
+	var b2 = getPatternElement("circle2 ", "yellow ", 1, 2, 1);
+	var b3 = getPatternElement("circle2 ", "green ", 1, 3, 1);
+*/
+	var b0 = '<div id="b0" class="shape-wrapper circle blue"></div>';
+	var b1 = '<div id="b1" class="shape-wrapper circle pink"></div>';
+	var b2 = '<div id="b2" class="shape-wrapper circle yellow"></div>';
+	var b3 = '<div id="b3" class="shape-wrapper circle green"></div>';
 
-	var b0 = "<div id='b0' class=" + "'pointer shape blue circle'" + ">" + "</div>";
-	var b1 = "<div id='b1' class=" + "'pointer shape pink circle'" + ">" + "</div>";
-	var b2 = "<div id='b2' class=" + "'pointer shape yellow circle'" + ">" + "</div>";
-	var b3 = "<div id='b3' class=" + "'pointer shape green circle'" + ">" + "</div>";
-	$(b0).appendTo('.keyboardDiv').hide().delay(keyboard_delay).fadeIn(250);
-	$(b1).appendTo('.keyboardDiv').hide().delay(keyboard_delay).fadeIn(250);
-	$(b2).appendTo('.keyboardDiv').hide().delay(keyboard_delay).fadeIn(250);
-	$(b3).appendTo('.keyboardDiv').hide().delay(keyboard_delay).fadeIn(250);
-
-}
-
-function numberKeyboard() {
-	var keyboard_delay = 125 * PATTERN_LENGTH;
-
-	var b0 = "<div id='b0' class=" + "'pointer shape grey circle'" + ">" + getNumchar(0, 1) + "</div>";
-	var b1 = "<div id='b1' class=" + "'pointer shape grey circle'" + ">" + getNumchar(1, 1) + "</div>";
-	var b2 = "<div id='b2' class=" + "'pointer shape grey circle'" + ">" + getNumchar(2, 1) + "</div>";
-	var b3 = "<div id='b3' class=" + "'pointer shape grey circle'" + ">" + getNumchar(3, 1) + "</div>";
-	$(b0).appendTo('.keyboardDiv').hide().delay(keyboard_delay).fadeIn(250);
-	$(b1).appendTo('.keyboardDiv').hide().delay(keyboard_delay).fadeIn(250);
-	$(b2).appendTo('.keyboardDiv').hide().delay(keyboard_delay).fadeIn(250);
-	$(b3).appendTo('.keyboardDiv').hide().delay(keyboard_delay).fadeIn(250);
-
+	$(b0).delay(keyboard_delay).appendTo('#keyContent');
+	$(b1).delay(keyboard_delay).appendTo('#keyContent');
+	$(b2).delay(keyboard_delay).appendTo('#keyContent');
+	$(b3).delay(keyboard_delay).appendTo('#keyContent');
 }
 
 //determine time untill end
@@ -451,47 +455,65 @@ function checkTimer() {
 	var pct = (TIME_ALLOWED - dif_secs) / TIME_ALLOWED;
 	//Time is up
 	if(now >= end_time) {
-		NProgress.set(1);
+		//NProgress.set(1);
 		clearInterval(timer_id);
 		destroyKeyboard(100);
 		//show pattern
 		for(i = 0; i < PATTERN_LENGTH; i++) {
-			var id = "#s" + i;
-			$(id).fadeIn(250);
+			var svgid = "#svg" + i;
+			$(svgid).attr("class", "appear");
+			$(svgid).fadeIn(100);
 		}
 		//clear gameboard after some time
 		setTimeout(function() {gameOver(0);}, 2500);
 	}
 	//update progress bar
 	else {
-		NProgress.set(pct + 0.015);
+		//NProgress.set(pct + 0.015);
 	}
 }
 
 //make keyboard clickable after loading keyboard
-function bindClick(keyboard) {
+function bindClick(keyboard, usable) {
+	if(usable) {
+		$('#b0').click(function(){
+			console.log('Clicked 0!!');
+			checkInput(0,keyboard);
+		});
 
-	$('#b0').click(function(){
-		console.log('Clicked 0!!');
-		checkInput(0,keyboard);
-	});
+		$('#b1').click(function(){
+			console.log('Clicked 1!!');
+			checkInput(1,keyboard);
+		});
 
-	$('#b1').click(function(){
-		console.log('Clicked 1!!');
-		checkInput(1,keyboard);
-	});
+		$('#b2').click(function(){
+			console.log('Clicked 2!!');
+			checkInput(2,keyboard);
+		});
 
-	$('#b2').click(function(){
-		console.log('Clicked 2!!');
-		checkInput(2,keyboard);
-	});
+		$('#b3').click(function(){
+			console.log('Clicked 3!!');
+			checkInput(3,keyboard);
+		});
 
-	$('#b3').click(function(){
-		console.log('Clicked 3!!');
-		checkInput(3,keyboard);
-	});
-	
+	}
+	else {
+		$('#b0').click(function(){
+			console.log('NOTHING');
+		});
 
+		$('#b1').click(function(){
+			console.log('NOTHING');
+		});
+
+		$('#b2').click(function(){
+			console.log('NOTHING');
+		});
+
+		$('#b3').click(function(){
+			console.log('NOTHING');
+		});
+	}
 }
 
 
@@ -539,8 +561,12 @@ function checkInput(button, keyboard) {
 		//pattern elements
 		var id = "#s" + position;
 		var wid = "#sw" + position;
+		var svgid = "#svg" + position;
 		if((position+1) < patternElements.length) {
-			$(id).fadeIn(200);
+			console.log("appearing " + svgid);
+			//$(svgid).attr("class", "");
+			$(svgid).attr("class", "appear");
+			$(svgid).fadeIn(100);
 			$(wid).removeClass("currentshape");
 			position++;
 			wid = "#sw" + position;
@@ -548,13 +574,17 @@ function checkInput(button, keyboard) {
 		}
 		//you got the last item. you win
 		else {
+			bindClick(1, 0);
+			$(svgid).attr("class", "appear");
+			//$(svgid).attr("class", "");
+			$(svgid).fadeIn(100);
 			$(wid).removeClass("currentshape");
 			console.log("WIN WITH " + time_remaining + "s REMAINING");
 			time_under_total += (time_remaining);
 			console.log("TOTAL TIME UNDER TARGET- " + time_under_total + "s");
 			clearInterval(timer_id);
-			$(id).show();
-			gameOver(1);
+			destroyKeyboard(100);
+			setTimeout(function() {gameOver(1);}, 1500);
 		}
 	}
 	else {
@@ -580,17 +610,22 @@ function gameOver(win) {
 	destroyKeyboard(1000);
 	var gameIsOver = 0;
 
+	console.log("fading out");
 	for(i = 0; i < PATTERN_LENGTH; i++) {
-		var id = "#sw" + i;
-		$(id).fadeOut(1000);
+		var svgid = "#svg" + i;
+		var swid = "#sw" + i;
+		$(svgid).attr("class", "disappear");
+		$(svgid).fadeOut(500);
+		$(swid).fadeOut(500);
 	}
-
+	
 
 	if(win) {
 		//continue
 		if(PATTERN_LENGTH < MAX_LENGTH) {
 			var msg = "<h3 class='levelwin'>More</h3>";
-			$(msg).appendTo('.patternDiv').hide().delay(1000).fadeIn(10);
+			//TODO: Mobile safari crashes when trying to execute this next line? Runs fine on desktop
+			//$(msg).delay(250).appendTo('#gameboard').show();
 			if(CONTINUE_BUTTON) {
 				var contmsg = "<h3 class='pointer resulttext continue'>Continue</h3>";
 				$(contmsg).appendTo('.patternDiv').hide().delay(1000).slideToggle(300);
@@ -614,7 +649,7 @@ function gameOver(win) {
 		makeStatsDiv(win, 1);
 
 		var retrymsg = "<h3 class='pointer resulttext tryagain'>Play Again</h3>";
-		$(retrymsg).appendTo('.patternDiv').hide().delay(1200).fadeIn(500);
+		$(retrymsg).appendTo('#gameboard').hide().delay(1200).fadeIn(500);
 
 		$('.tryagain').click(function(){
 			window.location.reload();
@@ -622,7 +657,7 @@ function gameOver(win) {
 	}	
 	
 	if(!CONTINUE_BUTTON && !gameIsOver) {
-		setTimeout(loadNextRound, 3000);
+		setTimeout(loadNextRound, 2000);
 	}
 
 	makeStatsDiv(win, 0);
@@ -688,7 +723,7 @@ function makeStatsDiv(win, print) {
 		msg += "<tr><td>Streak Bonus</td><td id='tableresults'>" + streak_bonus + "<span class='points'>pts</div></td></tr>";
 		msg += "<tr><td>Time Bonus</td><td id='tableresults'>" + time_bonus + "<span class='points'>pts</span></td></tr></table>";
 		msg += "<h3 class='finalscore'>Final Score</h3>" + "<h3 class='finalscore score' id='fscorehead'>" + total_score_adjusted + "</h3>";
-		$(msg).appendTo('.patternDiv').hide().delay(1200).fadeIn(500);
+		$(msg).appendTo('#gameboard').hide().delay(1200).fadeIn(500);
 		
 /*		var baseAnim = new countUp("basescoretd", 0, total_score, 0, 6);
 		setTimeout(baseAnim.start, 600);

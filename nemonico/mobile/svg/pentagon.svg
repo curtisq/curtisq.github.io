@@ -3,5 +3,5 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Shapes" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 88 88" enable-background="new 0 0 88 88" xml:space="preserve">
-<rect id="SQUARE" x="8" y="8" width="72" height="72"/>
-</svg>
+<polygon id="PENTAGON" points="19.3,80 4,35 44,6 84,35 68.7,80 "/>
+          </svg>

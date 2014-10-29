@@ -24,16 +24,16 @@
 	height: 121px;
 	min-height: 121px; 
 	min-width: 121px;
-	margin-left: 3%;
+	margin: 5px;
 	background: url(svg/dot.svg) no-repeat center center;
-	background-size: 25%;
+	background-size: 22px;
 	float: left;
 	clear: right;
 	overflow: visible;
 }
 
 .shape-wrapper .currentshape{
-	background: url( svg/dot-active.svg) no-repeat center center;
+	background: url(svg/dot-active.svg) no-repeat center center;
 }
 
 .shape-wrapper:active, .shape-wrapper:hover{
@@ -44,6 +44,31 @@
 
 
 /* KEYBOARD STYLES BEGIN HERE */
+
+#keyboard .shape-wrapper{
+	opacity: 0.2;
+}
+
+#keyboard .shape-wrapper.circle{
+	background: url(svg/circle.svg) no-repeat center center;
+}
+
+#keyboard .shape-wrapper.square{
+	background: url(svg/square.svg) no-repeat center center;
+}
+
+#keyboard .shape-wrapper.triangle{
+	background: url(svg/triangle.svg) no-repeat center center;
+}
+
+#keyboard .shape-wrapper.pentagon{
+	background: url(svg/pentagon.svg) no-repeat center center;
+}
+
+
+#keyboard .shape-wrapper:active{
+	opacity: 1.0
+	}
 
 /* MAKE SHAPES COLORLESS FOR KEYBOARD */
 #keyboard #CIRCLE, #keyboard #TRIANGLE, #keyboard #SQUARE, #keyboard #PENTAGON{
@@ -66,9 +91,10 @@
 }
 
 #keyboard .shape-wrapper{
-	width: 22%;
-	height: 22%;
-	margin: 1.5%;
+	width: 20%;
+	height: 20%;
+	margin: 0 14px;
+	background: none;
 }
 
 
@@ -80,7 +106,7 @@
 	margin: 0 auto;
 }
 #keyboard .centerme{
-	position: relative;
+	width: 100%;
 	margin-top: 22px;
 	background: none;
 }
