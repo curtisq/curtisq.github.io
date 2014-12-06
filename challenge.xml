@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+	<Say voice="man">This is a call from Twilio for the Jana coding challeng.</Say>
+	<Say voice="man">This was sent from Curtis Quintal.</Say>
+	<Say voice="man">The top headline on Reddit is.</Say>
+	<Say voice="man">some headline.</Say>
+</Response>
