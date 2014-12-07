@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Response>
-	<Say voice="man">This is a call from Twilio for the Jana coding challenge.
-	Sent from Curtis Quintal.
-	The top headline on Reddit is
-	Some headline
-	</Say>
+    <Say voice="alice">Thanks for trying our documentation. Enjoy!</Say>
+    <Play>http://demo.twilio.com/docs/classic.mp3</Play>
 </Response>
+
