@@ -89,6 +89,15 @@ function playRoundWinSound() {
 	return
 }
 
+function playRoundLoseSound() {
+	
+	var audio = new Audio('lose.mp3');
+	
+	audio.play();
+	return
+}
+
+
 function setProgress(pct, dur) {
 	//default value is 75 ms
 	dur = typeof dur !== 'undefined' ? dur : 75;
@@ -518,6 +527,7 @@ function checkTimer() {
 			$(svgid).attr("class", "appear");
 			$(svgid).fadeIn(100);
 		}
+		playRoundLoseSound();
 		//clear gameboard after some time
 		setTimeout(function() {gameOver(0);}, 2500);
 	}
