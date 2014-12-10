@@ -57,11 +57,61 @@ var time_remaining;
 var time_under_total = 0;
 var total_score = 0;
 
+var progressBar;
+
+
+function playRoundWinSound() {
+	var sound = Math.floor((Math.random() * 5));
+
+	switch(sound) {
+		case 0:
+			var audio = new Audio('welldone.mp3');
+			break;
+		case 1:
+			var audio = new Audio('goodjob.mp3');
+			break;
+		case 2:
+			var audio = new Audio('kickass.mp3');
+			break;
+		case 3:
+			var audio = new Audio('goodjob.mp3');
+			break;
+		case 4:
+			var audio = new Audio('welldone.mp3');
+			break;
+		default:
+			var audio = new Audio('goodjob.mp3');
+			break;
+	}	
+
+	
+	audio.play();
+	return
+}
+
+function setProgress(pct, dur) {
+	//default value is 75 ms
+	dur = typeof dur !== 'undefined' ? dur : 75;
+	progressBar.animate(pct, {
+		duration: dur,
+	}, function() {
+		//callback function	 
+	     	//console.log('Animation has finished at ' + pct);
+	});
+}
 
 function start() {
 	//This removes 300ms delay on click for mobile browsers. Yay!
 	$(function() {
 		    FastClick.attach(document.body);
+	});
+
+	//create progress bar object bind to global var
+	progressBar = new ProgressBar.Line('#nprogress', {
+		strokeWidth: 2,
+		trailColor: "#f4f4f4",
+		trailWidth: 0.8,
+		color: "#999",
 	});
 
 	main();
@@ -186,6 +236,7 @@ function rememberMain() {
 	NProgress.configure({ parent: '.progressBar' });
 	NProgress.set(0.0);
 	*/
+	setProgress(0, VIEW_TIME);
 	//return;
 	var keyboardType = Math.floor((Math.random() * VARIABLES));
 
@@ -305,6 +356,8 @@ function main() {
 	NProgress.configure({ parent: '.progressBar' });
 	NProgress.set(0.0);
 */
+	setProgress(0, VIEW_TIME);
+
 	//return;
 	var keyboardType = Math.floor((Math.random() * VARIABLES));
 
@@ -456,6 +509,7 @@ function checkTimer() {
 	//Time is up
 	if(now >= end_time) {
 		//NProgress.set(1);
+		setProgress(1);
 		clearInterval(timer_id);
 		destroyKeyboard(100);
 		//show pattern
@@ -470,6 +524,7 @@ function checkTimer() {
 	//update progress bar
 	else {
 		//NProgress.set(pct + 0.015);
+		setProgress(pct + 0.015);
 	}
 }
 
@@ -584,6 +639,7 @@ function checkInput(button, keyboard) {
 			console.log("TOTAL TIME UNDER TARGET- " + time_under_total + "s");
 			clearInterval(timer_id);
 			destroyKeyboard(100);
+			playRoundWinSound();
 			setTimeout(function() {gameOver(1);}, 1500);
 		}
 	}
