@@ -8,6 +8,6 @@ function isMobile() {
 
 function redirect() {
 	if(isMobile()){
-		window.location.replace("./mobile.index");
+		window.location.replace("./mobile/index.html");
 	}
 }
